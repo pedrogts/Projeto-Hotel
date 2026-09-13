@@ -48,7 +48,7 @@ public class Apartamento {
     }
 
     public void checkout() {
-        if (status == Status.LIVRE){
+        if (status != Status.OCUPADO){
             throw new IllegalStateException("Nao pode fazer checkout em apartamento livre");
         }
         this.hospede = null;
