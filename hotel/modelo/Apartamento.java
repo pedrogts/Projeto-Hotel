@@ -27,7 +27,9 @@ public class Apartamento {
     }
 
     public void checkin(Hospede h) {
-        if (status == Status.OCUPADO){
+        if (h == null){
+            throw new IllegalArgumentException("Nao e possivel fazer checkin sem hospede");
+        } else if (status == Status.OCUPADO){
             throw new IllegalStateException("Nao e possivel fazer checkin em apartamento ocupado");
         }
         this.hospede = h;
