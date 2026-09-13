@@ -80,12 +80,18 @@ public class Apartamento {
      * Realiza a cancela da reserva do apartamento, liberando para uma nova reserva ou ocupação
      * e removendo o vínculo com o hospede associado
      *
+     * @throws IllegalStateException se o apartamento nao estiver RESERVADO
+     *
      * @pre O apartamento deve possuir número e andar válidos e estar no status RESERVADO
      * @post Se bem-sucedido, o apartamento ficará no status LIVRE e sem hósepede associado
      */
     public void cancelarReserva() {
-        this.hospede = null;
-        this.status = Status.LIVRE;
+        if(estaReservado()) {
+            this.hospede = null;
+            this.status = Status.LIVRE;
+        } else{
+            throw new IllegalStateException("Só é possível cancelar uma reserva em um apartamento reservado.");
+        }
     }
 
     public boolean estaLivre() { return status == Status.LIVRE; }
