@@ -21,6 +21,7 @@ public class HotelTest {
         testarMudarAptoLivreParaReservadoComHospede();
         testarMudarAptoLivreParaReservadoSemHospede();
         testarReservarAptoJaReservado();
+        testarReservarAptoOcupado();
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -211,6 +212,24 @@ public class HotelTest {
                 passou++;
             } else {
                 System.out.println("FALHOU: testarReservarAptoJaReservado");
+            }
+        }
+    }
+
+    static void testarReservarAptoOcupado() {
+        total++;
+        Apartamento apto = new Apartamento();
+        Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Hospede h2 = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        try {
+            apto.checkin(h);
+            apto.reservar(h2);
+            System.out.println("FALHOU: testarReservarAptoOcupado - Exceção não lançada");
+        } catch (IllegalStateException e) {
+            if (apto.getHospede() == h && apto.estaOcupado()) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarReservarAptoOcupado");
             }
         }
     }
