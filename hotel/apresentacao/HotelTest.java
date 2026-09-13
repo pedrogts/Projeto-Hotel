@@ -10,6 +10,7 @@ public class HotelTest {
         testarCheckinEmAptoLivre();
         testarCheckinArmazenaHospede();
         testarFalhaCheckinEmAptoOcupado();
+        testarFalhaCheckinComHospedeNulo();
         // Exemplo:
         // testarReservarAptoLivre();
         // testarReservarAptoOcupadoFalha();
@@ -73,6 +74,22 @@ public class HotelTest {
             passou++;
         } catch (Exception e) {
             System.out.println("FALHOU: testarFalhaCheckinEmAptoOcupado (esperava IllegalStateException, veio " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarFalhaCheckinComHospedeNulo() {
+        total++;
+
+        try {
+            Apartamento apto = new Apartamento();
+
+            apto.checkin(null);
+
+            System.out.println("FALHOU: testarFalhaCheckinComHospedeNulo (nenhuma excecao foi lancada)");
+        } catch (IllegalArgumentException e) {
+            passou++;
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarFalhaCheckinComHospedeNulo (esperava IllegalArgumentException, veio " + e.getClass().getSimpleName() + ")");
         }
     }
 
