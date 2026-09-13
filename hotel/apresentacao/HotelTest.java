@@ -15,6 +15,7 @@ public class HotelTest {
         testarCheckoutLiberaApartamento();
         testarCheckoutZeraHospede();
         testarFalhaCheckoutEmAptoLivre();
+        testarFalhaCheckoutEmAptoReservado();
         // Exemplo:
         // testarReservarAptoLivre();
         // testarReservarAptoOcupadoFalha();
@@ -174,6 +175,24 @@ public class HotelTest {
             passou++;
         } catch (Exception e) {
             System.out.println("FALHOU: testarFalhaCheckoutEmAptoLivre (esperava IllegalStateException, veio " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarFalhaCheckoutEmAptoReservado() {
+        total++;
+
+        try {
+            Apartamento apto = new Apartamento();
+            Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+
+            apto.reservar(hosp);
+            apto.checkout();
+
+            System.out.println("FALHOU: testarFalhaCheckoutEmAptoReservado (nenhuma excecao foi lancada)");
+        } catch (IllegalStateException e) {
+            passou++;
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarFalhaCheckoutEmAptoReservado (esperava IllegalStateException, veio " + e.getClass().getSimpleName() + ")");
         }
     }
 
