@@ -19,6 +19,7 @@ public class HotelTest {
         // testarReservarAptoOcupadoFalha();
         // ...
         testarMudarAptoLivreParaReservadoComHospede();
+        testarMudarAptoLivreParaReservadoSemHospede();
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -59,7 +60,6 @@ public class HotelTest {
             System.out.println("FALHOU: testarCheckinArmazenaHospede (excecao inesperada: " + e.getClass().getSimpleName() + ")");
         }
     }
-
 
     static void testarFalhaCheckinEmAptoOcupado() {
         total++;
@@ -181,6 +181,18 @@ public class HotelTest {
             passou++;
         } else{
             System.out.println("FALHOU: testarMudarAptoLivreParaReservadoComHospede");
+        }
+    }
+
+    static void testarMudarAptoLivreParaReservadoSemHospede() {
+        total++;
+        Apartamento apto = new Apartamento();
+        Hospede h = null;
+        try {
+            apto.reservar(h);
+            System.out.println("FALHOU: testarMudarAptoLivreParaReservadoSemHospede");
+        } catch (IllegalArgumentException e) {
+            passou++;
         }
     }
 }
