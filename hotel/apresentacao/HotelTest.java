@@ -12,6 +12,7 @@ public class HotelTest {
         testarFalhaCheckinEmAptoOcupado();
         testarFalhaCheckinComHospedeNulo();
         testarCheckinComReserva();
+        testarCheckoutLiberaApartamento();
         // Exemplo:
         // testarReservarAptoLivre();
         // testarReservarAptoOcupadoFalha();
@@ -113,6 +114,26 @@ public class HotelTest {
             }
         } catch (Exception e) {
             System.out.println("FALHOU: testarCheckinComReserva (excecao inesperada: " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarCheckoutLiberaApartamento() {
+        total++;
+
+        try {
+            Apartamento apto = new Apartamento();
+            Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+
+            apto.checkin(hosp);
+            apto.checkout();
+
+            if (apto.estaLivre()) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarCheckoutLiberaApartamento");
+            }
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarCheckoutLiberaApartamento (excecao inesperada: " + e.getClass().getSimpleName() + ")");
         }
     }
 
