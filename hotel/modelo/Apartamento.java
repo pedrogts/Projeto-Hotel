@@ -17,7 +17,8 @@ public class Apartamento {
     }
 
     public void checkin(Hospede h) {
-        throw new UnsupportedOperationException("Implementar: LIVRE/RESERVADO -> OCUPADO");
+        this.status = Status.OCUPADO;
+        //throw new UnsupportedOperationException("Implementar: LIVRE/RESERVADO -> OCUPADO");
     }
 
     public void checkout() {
