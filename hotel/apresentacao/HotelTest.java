@@ -7,6 +7,7 @@ public class HotelTest {
     private static int total = 0;
 
     public static void main(String[] args) {
+        testarCheckinEmAptoLivre();
         // Exemplo:
         // testarReservarAptoLivre();
         // testarReservarAptoOcupadoFalha();
@@ -14,6 +15,27 @@ public class HotelTest {
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
+
+    static void testarCheckinEmAptoLivre() {
+        total++;
+
+        try {
+            Apartamento apto = new Apartamento();
+            Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+
+            apto.checkin(hosp);
+
+            if (apto.estaOcupado()) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarCheckinEmAptoLivre");
+            }
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarCheckinEmAptoLivre (excecao inesperada: " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+
 
     // Exemplo de metodo de teste:
     // static void testarReservarAptoLivre() {
