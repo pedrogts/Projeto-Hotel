@@ -14,6 +14,7 @@ public class HotelTest {
         testarCheckinComReserva();
         testarCheckoutLiberaApartamento();
         testarCheckoutZeraHospede();
+        testarFalhaCheckoutEmAptoLivre();
         // Exemplo:
         // testarReservarAptoLivre();
         // testarReservarAptoOcupadoFalha();
@@ -158,6 +159,25 @@ public class HotelTest {
             System.out.println("FALHOU: testarCheckoutZeraHospede (excecao inesperada: " + e.getClass().getSimpleName() + ")");
         }
     }
+
+
+    static void testarFalhaCheckoutEmAptoLivre() {
+        total++;
+
+        try {
+            Apartamento apto = new Apartamento();
+
+            apto.checkout();
+
+            System.out.println("FALHOU: testarFalhaCheckoutEmAptoLivre (nenhuma excecao foi lancada)");
+        } catch (IllegalStateException e) {
+            passou++;
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarFalhaCheckoutEmAptoLivre (esperava IllegalStateException, veio " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+
 
 
 
