@@ -22,8 +22,10 @@ public class Apartamento {
      * @post Se bem-sucedido, o apartamento terá o status RESERVADO e o hospede será armazenado
      */
     public void reservar(Hospede h) {
-        this.status = Status.RESERVADO;
-        this.hospede = h;
+        if(h != null){
+            this.status = Status.RESERVADO;
+            this.hospede = h;
+        }
     }
 
     public void checkin(Hospede h) {
