@@ -36,6 +36,18 @@ public class Apartamento {
         }
     }
 
+    /**
+     * Realiza o check-in de um hospede no apartamento, alterando seu status
+     * para OCUPADO. Aceita como origem tanto um apartamento LIVRE (check-in
+     * direto, REQ04) quanto um RESERVADO (check-in a partir de reserva, REQ03).
+     *
+     * @param h Dados do hospede
+     * @throws IllegalArgumentException se h for nulo
+     * @throws IllegalStateException se o apartamento ja estiver OCUPADO
+     *
+     * @pre O apartamento não pode estar com status OCUPADO
+     * @post O apartamento tera status OCUPADO
+     */
     public void checkin(Hospede h) {
         if (h == null){
             throw new IllegalArgumentException("Nao e possivel fazer checkin sem hospede"); //Problema vem de fora
@@ -46,7 +58,15 @@ public class Apartamento {
         this.status = Status.OCUPADO;
         //throw new UnsupportedOperationException("Implementar: LIVRE/RESERVADO -> OCUPADO");
     }
-
+    /**
+     * Realiza o checkout do apartamento, liberando para uma nova ocupação e
+     * removendo o vinculo com o hospede que estava hospedado (REQ05).
+     *
+     * @throws IllegalStateException se o apartamento não estiver OCUPADO
+     *
+     * @pre O apartamento deve estar com status OCUPADO
+     * @post O apartamento ficara com o status LIVRE
+     */
     public void checkout() {
         if (status != Status.OCUPADO){
             throw new IllegalStateException("Nao pode fazer checkout em apartamento livre");
