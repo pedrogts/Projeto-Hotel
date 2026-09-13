@@ -13,7 +13,7 @@ public class HotelTest {
         // testarReservarAptoLivre();
         // testarReservarAptoOcupadoFalha();
         // ...
-
+        testarMudarAptoLivreParaReservadoComHospede();
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -68,4 +68,16 @@ public class HotelTest {
     //         System.out.println("FALHOU: testarReservarAptoLivre");
     //     }
     // }
+
+    static void testarMudarAptoLivreParaReservadoComHospede() {
+        total++;
+        Apartamento apto = new Apartamento();
+        Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        apto.reservar(h);
+        if(apto.estaReservado() && apto.getHospede() != null){
+            passou++;
+        } else{
+            System.out.println("FALHOU: testarMudarAptoLivreParaReservadoComHospede");
+        }
+    }
 }
