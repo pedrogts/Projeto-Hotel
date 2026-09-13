@@ -76,8 +76,16 @@ public class Apartamento {
         //throw new UnsupportedOperationException("Implementar: OCUPADO -> LIVRE");
     }
 
+    /**
+     * Realiza a cancela da reserva do apartamento, liberando para uma nova reserva ou ocupação
+     * e removendo o vínculo com o hospede associado
+     *
+     * @pre O apartamento deve possuir número e andar válidos e estar no status RESERVADO
+     * @post Se bem-sucedido, o apartamento ficará no status LIVRE e sem hósepede associado
+     */
     public void cancelarReserva() {
-        throw new UnsupportedOperationException("Implementar: RESERVADO -> LIVRE");
+        this.hospede = null;
+        this.status = Status.LIVRE;
     }
 
     public boolean estaLivre() { return status == Status.LIVRE; }
