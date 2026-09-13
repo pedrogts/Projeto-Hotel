@@ -17,7 +17,16 @@ public class Apartamento {
     }
 
     public void checkin(Hospede h) {
-        throw new UnsupportedOperationException("Implementar: LIVRE/RESERVADO -> OCUPADO");
+
+        if (h == null){
+            throw new IllegalArgumentException("Hospede nao pode ser nulo");
+        } else if ( status == Status.OCUPADO){
+            throw new IllegalStateException("Nao pode fazer check in em apartamento ja ocupado");
+        }
+        this.hospede = h;
+        this.status = Status.OCUPADO;
+
+        //throw new UnsupportedOperationException("Implementar: LIVRE/RESERVADO -> OCUPADO");
     }
 
     public void checkout() {
