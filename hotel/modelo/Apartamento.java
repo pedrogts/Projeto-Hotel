@@ -12,8 +12,18 @@ public class Apartamento {
     public Status getStatus() { return status; }
     public Hospede getHospede() { return hospede; }
 
+    /**
+     * Reserva o apartamento, alterando seu status de LIVRE para RESERVADO
+     * e associando o hóspede à reserva.
+     *
+     * @param h Dados do hóspede que fará a reserva
+     *
+     * @pre O apartamento deve possuir número e andar válidos
+     * @post Se bem-sucedido, o apartamento terá o status RESERVADO e o hospede será armazenado
+     */
     public void reservar(Hospede h) {
-        throw new UnsupportedOperationException("Implementar: LIVRE -> RESERVADO");
+        this.status = Status.RESERVADO;
+        this.hospede = h;
     }
 
     public void checkin(Hospede h) {
