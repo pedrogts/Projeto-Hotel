@@ -17,14 +17,20 @@ public class Apartamento {
      * e associando o hóspede à reserva.
      *
      * @param h Dados do hóspede que fará a reserva
+     * @throws IllegalArgumentException se o hóspede for nulo
+     * @throws  IllegalStateException se o apartamento não estiver LIVRE
      *
      * @pre O apartamento deve possuir número e andar válidos
      * @post Se bem-sucedido, o apartamento terá o status RESERVADO e o hospede será armazenado
      */
     public void reservar(Hospede h) {
         if(h != null){
-            this.status = Status.RESERVADO;
-            this.hospede = h;
+            if(estaLivre()) {
+                this.status = Status.RESERVADO;
+                this.hospede = h;
+            } else{
+                throw new IllegalStateException("Só é possível realizar reservas em apartamentos livres.");
+            }
         } else {
             throw new IllegalArgumentException("É necessário haver um hóspede para realizar a reserva.");
         }
