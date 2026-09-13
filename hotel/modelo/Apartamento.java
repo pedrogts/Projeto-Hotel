@@ -28,9 +28,9 @@ public class Apartamento {
 
     public void checkin(Hospede h) {
         if (h == null){
-            throw new IllegalArgumentException("Nao e possivel fazer checkin sem hospede");
+            throw new IllegalArgumentException("Nao e possivel fazer checkin sem hospede"); //Problema vem de fora
         } else if (status == Status.OCUPADO){
-            throw new IllegalStateException("Nao e possivel fazer checkin em apartamento ocupado");
+            throw new IllegalStateException("Nao e possivel fazer checkin em apartamento ocupado"); //Problema de dentro
         }
         this.hospede = h;
         this.status = Status.OCUPADO;
@@ -38,7 +38,8 @@ public class Apartamento {
     }
 
     public void checkout() {
-        throw new UnsupportedOperationException("Implementar: OCUPADO -> LIVRE");
+        this.status = Status.LIVRE;
+        //throw new UnsupportedOperationException("Implementar: OCUPADO -> LIVRE");
     }
 
     public void cancelarReserva() {
