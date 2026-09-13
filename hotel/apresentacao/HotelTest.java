@@ -8,6 +8,7 @@ public class HotelTest {
 
     public static void main(String[] args) {
         testarCheckinEmAptoLivre();
+        testarCheckinArmazenaHospede();
         // Exemplo:
         // testarReservarAptoLivre();
         // testarReservarAptoOcupadoFalha();
@@ -32,6 +33,25 @@ public class HotelTest {
             }
         } catch (Exception e) {
             System.out.println("FALHOU: testarCheckinEmAptoLivre (excecao inesperada: " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarCheckinArmazenaHospede() {
+        total++;
+
+        try {
+            Apartamento apto = new Apartamento();
+            Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+
+            apto.checkin(hosp);
+
+            if (apto.getHospede() != null && apto.getHospede().getCpf().equals("123")) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarCheckinArmazenaHospede");
+            }
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarCheckinArmazenaHospede (excecao inesperada: " + e.getClass().getSimpleName() + ")");
         }
     }
 
