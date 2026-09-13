@@ -38,6 +38,7 @@ public class Apartamento {
     }
 
     public void checkout() {
+        this.hospede = null;
         this.status = Status.LIVRE;
         //throw new UnsupportedOperationException("Implementar: OCUPADO -> LIVRE");
     }
