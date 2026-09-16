@@ -1,11 +1,11 @@
 package hotel.modelo;
 
 public class Hospede {
-    private String cpf;
-    private String nome;
-    private String endereco;
-    private String celular;
-    private String email;
+    private final String cpf;
+    private final String nome;
+    private final String endereco;
+    private final String celular;
+    private final String email;
 
     public Hospede(String cpf, String nome, String endereco, String celular, String email) {
         if (cpf == null || cpf.isBlank()) {
@@ -15,9 +15,9 @@ public class Hospede {
         } else if (endereco == null || endereco.isBlank()) {
             throw new IllegalArgumentException("Campo obrigatório : Endereco");
         } else if (celular == null || celular.isBlank()) {
-            throw new IllegalArgumentException("Campo obrigatório : Endereco");
+            throw new IllegalArgumentException("Campo obrigatório : Celular");
         } else if (email == null || email.isBlank()) {
-            throw new IllegalArgumentException("Campo obrigatório : Endereco");
+            throw new IllegalArgumentException("Campo obrigatório : E-mail");
         }
         this.cpf = cpf;
         this.nome = nome;
