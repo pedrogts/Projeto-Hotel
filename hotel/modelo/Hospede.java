@@ -12,6 +12,8 @@ public class Hospede {
             throw new IllegalArgumentException("Campo obrigatório : CPF");
         } else if (nome == null || nome.isBlank()){
             throw new IllegalArgumentException("Campo obrigatório : Nome");
+        } else if (endereco == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Campo obrigatório : Endereco");
         }
         this.cpf = cpf;
         this.nome = nome;
