@@ -36,4 +36,17 @@ public class Hospede {
     public String toString() {
         return nome + " (CPF: " + cpf + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Hospede outro)) {
+            return false;
+        }
+        return this.cpf.equals(outro.getCpf());
+    }
+
+    @Override
+    public int hashCode() {
+        return cpf.hashCode();
+    }
 }
