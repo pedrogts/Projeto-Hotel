@@ -8,6 +8,9 @@ public class Hospede {
     private String email;
 
     public Hospede(String cpf, String nome, String endereco, String celular, String email) {
+        if (cpf == null || cpf.isBlank()) {
+            throw new IllegalArgumentException("Campo obrigatório : CPF");
+        }
         this.cpf = cpf;
         this.nome = nome;
         this.endereco = endereco;
