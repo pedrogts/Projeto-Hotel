@@ -30,6 +30,7 @@ public class HotelTest {
         testarFalhaHospedeComEnderecoNulo();
         testarFalhaHospedeComCelularNulo();
         testarFalhaHospedeComEmailNulo();
+        testarHospedesComMesmoCpfSaoIguais();
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -365,6 +366,22 @@ public class HotelTest {
             passou++;
         } catch (Exception e) {
             System.out.println("FALHOU: testarFalhaHospedeComEmailNulo (esperava IllegalArgumentException, veio " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarHospedesComMesmoCpfSaoIguais() {
+        total++;
+        try {
+            Hospede a = new Hospede("123", "Joao Silva", "Rua A", "9999", "joao@x");
+            Hospede b = new Hospede("123", "Joao S.", "Rua Z", "0000", "outro@x");
+
+            if (a.equals(b)) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarHospedesComMesmoCpfSaoIguais");
+            }
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarHospedesComMesmoCpfSaoIguais (excecao inesperada: " + e.getClass().getSimpleName() + ")");
         }
     }
 }
