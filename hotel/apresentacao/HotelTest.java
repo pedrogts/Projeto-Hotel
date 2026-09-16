@@ -28,6 +28,7 @@ public class HotelTest {
         testarFalhaHospedeComCPFNulo();
         testarFalhaHospedeComNomeNulo();
         testarFalhaHospedeComEnderecoNulo();
+        testarFalhaHospedeComCelularNulo();
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -339,6 +340,18 @@ public class HotelTest {
             passou++;
         } catch (Exception e) {
             System.out.println("FALHOU: testarFalhaHospedeComEnderecoNulo (esperava IllegalArgumentException, veio " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarFalhaHospedeComCelularNulo() {
+        total++;
+        try {
+            new Hospede("123", "Joao", "Rua X", null, "joao@x");
+            System.out.println("FALHOU: testarFalhaHospedeComCelularNulo (nenhuma excecao foi lancada)");
+        } catch (IllegalArgumentException e) {
+            passou++;
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarFalhaHospedeComCelularNulo (esperava IllegalArgumentException, veio " + e.getClass().getSimpleName() + ")");
         }
     }
 }
