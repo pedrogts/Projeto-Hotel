@@ -23,6 +23,7 @@ public class HotelTest {
         testarCancelarReservaFeita();
         testarCancelarReservaEmAptoLivre();
         testarCancelarReservaEmAptoOcupado();
+        testarFalhaHospedeComCPFNulo();
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -298,6 +299,18 @@ public class HotelTest {
             } else{
                 System.out.println("FALHOU: testarCancelarReservaEmAptoOcupado");
             }
+        }
+    }
+
+    static void testarFalhaHospedeComCPFNulo(){
+        total++;
+        try {
+            new Hospede( null, "Joao", "Rua X", "9999", "joao@x");
+            System.out.println("FALHOU: testarFalhaHospedeComCPFNulo - Exceção não lançada");
+        } catch (IllegalArgumentException e) {
+            passou ++;
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarFalhaHospedeComCpfNulo (esperava IllegalArgumentException, veio " + e.getClass().getSimpleName() + ")");
         }
     }
 }
