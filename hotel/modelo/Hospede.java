@@ -11,7 +11,6 @@ import java.io.Serializable;
  */
 public class Hospede implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     private final String cpf;
     private final String nome;
