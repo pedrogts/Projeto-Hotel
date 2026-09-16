@@ -10,6 +10,8 @@ public class Hospede {
     public Hospede(String cpf, String nome, String endereco, String celular, String email) {
         if (cpf == null || cpf.isBlank()) {
             throw new IllegalArgumentException("Campo obrigatório : CPF");
+        } else if (nome == null || nome.isBlank()){
+            throw new IllegalArgumentException("Campo obrigatório : Nome");
         }
         this.cpf = cpf;
         this.nome = nome;
