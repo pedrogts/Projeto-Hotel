@@ -17,14 +17,22 @@ public class Apartamento {
      * e associando o hóspede à reserva.
      *
      * @param h Dados do hóspede que fará a reserva
+     * @throws IllegalArgumentException se o hóspede for nulo
+     * @throws  IllegalStateException se o apartamento não estiver LIVRE
      *
      * @pre O apartamento deve possuir número e andar válidos
      * @post Se bem-sucedido, o apartamento terá o status RESERVADO e o hospede será armazenado
      */
     public void reservar(Hospede h) {
         if(h != null){
-            this.status = Status.RESERVADO;
-            this.hospede = h;
+            if(estaLivre()) {
+                this.status = Status.RESERVADO;
+                this.hospede = h;
+            } else{
+                throw new IllegalStateException("Só é possível realizar reservas em apartamentos livres.");
+            }
+        } else {
+            throw new IllegalArgumentException("É necessário haver um hóspede para realizar a reserva.");
         }
     }
 
@@ -68,8 +76,22 @@ public class Apartamento {
         //throw new UnsupportedOperationException("Implementar: OCUPADO -> LIVRE");
     }
 
+    /**
+     * Realiza a cancela da reserva do apartamento, liberando para uma nova reserva ou ocupação
+     * e removendo o vínculo com o hospede associado
+     *
+     * @throws IllegalStateException se o apartamento nao estiver RESERVADO
+     *
+     * @pre O apartamento deve possuir número e andar válidos e estar no status RESERVADO
+     * @post Se bem-sucedido, o apartamento ficará no status LIVRE e sem hósepede associado
+     */
     public void cancelarReserva() {
-        throw new UnsupportedOperationException("Implementar: RESERVADO -> LIVRE");
+        if(estaReservado()) {
+            this.hospede = null;
+            this.status = Status.LIVRE;
+        } else{
+            throw new IllegalStateException("Só é possível cancelar uma reserva em um apartamento reservado.");
+        }
     }
 
     public boolean estaLivre() { return status == Status.LIVRE; }
