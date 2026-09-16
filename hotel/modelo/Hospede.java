@@ -16,6 +16,8 @@ public class Hospede {
             throw new IllegalArgumentException("Campo obrigatório : Endereco");
         } else if (celular == null || celular.isBlank()) {
             throw new IllegalArgumentException("Campo obrigatório : Endereco");
+        } else if (email == null || email.isBlank()) {
+            throw new IllegalArgumentException("Campo obrigatório : Endereco");
         }
         this.cpf = cpf;
         this.nome = nome;
