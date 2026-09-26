@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Hotel {
     public static final int NUM_ANDARES = 20;
     public static final int APTOS_POR_ANDAR = 14;
+    public static final int SIMPLES_POR_ANDAR = 8;
 
     private Apartamento[][] matriz;
     private ArrayList<Servico> servicos;
@@ -21,7 +22,11 @@ public class Hotel {
     private void inicializar() {
         for (int a = 0; a < NUM_ANDARES; a++) {
             for (int n = 0; n < APTOS_POR_ANDAR; n++) {
-                matriz[a][n] = new Apartamento();
+                if (n < SIMPLES_POR_ANDAR) {
+                    matriz[a][n] = new ApartamentoSimples();
+                } else {
+                    matriz[a][n] = new ApartamentoPremium();
+                }
             }
         }
     }
