@@ -35,7 +35,8 @@ public class HotelTest {
         //Teste Apartamento Simples e Premium
         testarPrecoApartamentoSimplesEPremium();
         testarHotelCriaSimplesEPremiumPorAndar();
-        testarHotelReservarAptoSimples();
+        testarHotelReservarApto();
+        testarHotelRealizarCheckinApto();
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -426,7 +427,7 @@ public class HotelTest {
         }
     }
 
-    static void testarHotelReservarAptoSimples(){
+    static void testarHotelReservarApto(){
         total++;
         Hotel hotel = new Hotel();
 
@@ -438,6 +439,20 @@ public class HotelTest {
             passou++;
         } else{
             System.out.println("FALHOU: testarHotelReservarAptoSimples");
+        }
+    }
+
+    static void testarHotelRealizarCheckinApto(){
+        total++;
+        Hotel hotel = new Hotel();
+        Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        hotel.realizarCheckin(0,0, h);
+        Apartamento apto = hotel.getApartamento(0,0);
+
+        if (apto.estaOcupado() && apto.getHospede().equals(h)) {
+            passou++;
+        } else {
+            System.out.println("FALHOU: testarHotelRealizarCheckinApto");
         }
     }
 }

@@ -60,7 +60,8 @@ public class Hotel {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
-        throw new UnsupportedOperationException("Implementar realizarCheckin");
+        //throw new UnsupportedOperationException("Implementar realizarCheckin");
+        return true;
     }
 
     public boolean realizarCheckout(int andar, int numero) {
