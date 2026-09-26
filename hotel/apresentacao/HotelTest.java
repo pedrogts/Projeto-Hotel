@@ -35,6 +35,7 @@ public class HotelTest {
         //Teste Apartamento Simples e Premium
         testarPrecoApartamentoSimplesEPremium();
         testarHotelCriaSimplesEPremiumPorAndar();
+        testarHotelReservarAptoSimples();
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -426,6 +427,7 @@ public class HotelTest {
     }
 
     static void testarHotelReservarAptoSimples(){
+        total++;
         Hotel hotel = new Hotel();
 
         Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
