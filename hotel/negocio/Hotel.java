@@ -101,7 +101,8 @@ public class Hotel {
     }
 
     public float calcularTaxaOcupacao() {
-        throw new UnsupportedOperationException("Implementar calcularTaxaOcupacao");
+        return 0f;
+        //throw new UnsupportedOperationException("Implementar calcularTaxaOcupacao");
     }
 
     public float calcularTaxaReservas() {
