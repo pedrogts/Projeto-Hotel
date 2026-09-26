@@ -7,6 +7,7 @@ public class Hotel {
     public static final int NUM_ANDARES = 20;
     public static final int APTOS_POR_ANDAR = 14;
     public static final int SIMPLES_POR_ANDAR = 8;
+    private static final float TOTAL_APARTAMENTOS = NUM_ANDARES * APTOS_POR_ANDAR;
 
     private Apartamento[][] matriz;
     private ArrayList<Servico> servicos;
@@ -86,7 +87,9 @@ public class Hotel {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
-        throw new UnsupportedOperationException("Implementar cancelarReserva");
+        Apartamento apto = getApartamento(andar,numero);
+        apto.cancelarReserva();
+        return true;
     }
 
     public void mostrarMapa() {
@@ -100,12 +103,44 @@ public class Hotel {
         throw new UnsupportedOperationException("Implementar consultarApartamento");
     }
 
+    /**
+     * Calcula a proporção de apartamentos do hotel que estão ocupados (REQ07).
+     *
+     * @return valor entre 0.0 e 1.0, onde 1.0 significa o hotel totalmente ocupado
+     *
+     * @pre Nenhuma
+     * @post Nenhum objeto é alterado
+     */
     public float calcularTaxaOcupacao() {
-        throw new UnsupportedOperationException("Implementar calcularTaxaOcupacao");
+        int ocupados = 0;
+        for (int a = 0; a < NUM_ANDARES; a++) {
+            for (int n = 0; n < APTOS_POR_ANDAR; n++) {
+                if (matriz[a][n].estaOcupado()) {
+                    ocupados++;
+                }
+            }
+        }
+        return ocupados / TOTAL_APARTAMENTOS;
     }
 
+    /**
+     * Calcula a proporção de apartamentos do hotel que estão reservados (REQ07).
+     *
+     * @return valor entre 0.0 e 1.0, onde 1.0 significa todos os apartamentos reservados
+     *
+     * @pre Nenhuma
+     * @post Nenhum objeto é alterado
+     */
     public float calcularTaxaReservas() {
-        throw new UnsupportedOperationException("Implementar calcularTaxaReservas");
+        int reservados = 0;
+        for (int a = 0; a < NUM_ANDARES; a++) {
+            for (int n = 0; n < APTOS_POR_ANDAR; n++) {
+                if (matriz[a][n].estaReservado()) {
+                    reservados++;
+                }
+            }
+        }
+        return reservados / TOTAL_APARTAMENTOS;
     }
 
     public void cadastrarServico(String nome, float preco) {
