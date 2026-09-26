@@ -31,6 +31,10 @@ public class HotelTest {
         testarFalhaHospedeComCelularNulo();
         testarFalhaHospedeComEmailNulo();
         testarHospedesComMesmoCpfSaoIguais();
+
+        //Teste Apartamento Simples e Premium
+        testarPrecoApartamentoSimplesEPremium();
+        testarHotelCriaSimplesEPremiumPorAndar();
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -397,6 +401,27 @@ public class HotelTest {
             passou++;
         } else {
             System.out.println("FALHOU: testarPrecoApartamentoSimplesEPremium");
+        }
+    }
+
+    static void testarHotelCriaSimplesEPremiumPorAndar() {
+        total++;
+
+        try {
+            Hotel hotel = new Hotel();
+
+            boolean ok = hotel.getApartamento(0, 0).getPrecoDiaria() == 150f
+                    && hotel.getApartamento(0, 7).getPrecoDiaria() == 150f
+                    && hotel.getApartamento(0, 8).getPrecoDiaria() == 350f
+                    && hotel.getApartamento(0, 13).getPrecoDiaria() == 350f;
+
+            if (ok) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarHotelCriaSimplesEPremiumPorAndar");
+            }
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarHotelCriaSimplesEPremiumPorAndar (excecao inesperada: " + e.getClass().getSimpleName() + ")");
         }
     }
 }
