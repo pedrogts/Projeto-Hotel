@@ -424,4 +424,18 @@ public class HotelTest {
             System.out.println("FALHOU: testarHotelCriaSimplesEPremiumPorAndar (excecao inesperada: " + e.getClass().getSimpleName() + ")");
         }
     }
+
+    static void testarHotelReservarAptoSimples(){
+        Hotel hotel = new Hotel();
+
+        Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        hotel.reservarApartamento(0,0,h);
+        Apartamento apto = hotel.getApartamento(0,0);
+
+        if(apto.estaReservado() && apto.getHospede() != null && apto.getPrecoDiaria() == 150f){
+            passou++;
+        } else{
+            System.out.println("FALHOU: testarHotelReservarAptoSimples");
+        }
+    }
 }
