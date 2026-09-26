@@ -45,6 +45,9 @@ public class HotelTest {
         testarTaxaOcupacaoComHotelVazio();
         testarTaxaOcupacaoComUmApartamentoOcupado();
         testarTaxaReservasComUmApartamentoReservado();
+
+        //Visualização do mapa
+        testarHotelMostrarMapaNaoLancaExcecao();
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -541,6 +544,17 @@ public class HotelTest {
             }
         } catch (Exception e) {
             System.out.println("FALHOU: testarTaxaReservasComUmApartamentoReservado (excecao inesperada: " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarHotelMostrarMapaNaoLancaExcecao(){
+        total++;
+        try {
+            Hotel hotel = new Hotel();
+            hotel.mostrarMapa();
+            passou++;
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarHotelMostrarMapaNaoLancaExcecao (" + e.getMessage() + ")");
         }
     }
 }
