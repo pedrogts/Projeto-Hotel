@@ -44,6 +44,18 @@ public class Hotel {
         return andar >= 0 && andar < NUM_ANDARES && numero >= 0 && numero < APTOS_POR_ANDAR;
     }
 
+    /**
+     * Reserva um apartamento, mudando seu status de LIVRE para RESERVADO.
+     *
+     * @param andar Numero do andar (0 a 19)
+     * @param numero Numero do apartamento no andar (0 a 13)
+     * @param hospede Dados do hospede que fará a reserva
+     * @return true se a reserva foi bem-sucedida
+     * @throws IllegalArgumentException se andar ou numero forem invalidos
+     *
+     * @pre O hotel deve estar inicializado
+     * @post Se bem-sucedido, o apartamento tera status RESERVADO e o hospede sera armazenado
+     */
     public boolean reservarApartamento(int andar, int numero, Hospede hospede) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
@@ -53,6 +65,19 @@ public class Hotel {
         return true;
     }
 
+    /**
+     * Realiza o check-in de um hospede em um apartamento, mudando seu status
+     * para OCUPADO.
+     *
+     * @param andar Numero do andar (0 a 19)
+     * @param numero Numero do apartamento no andar (0 a 13)
+     * @param hospede Dados do hospede que fara o check-in
+     * @return true se o check-in foi bem-sucedido
+     * @throws IllegalArgumentException se andar ou numero forem invalidos
+     *
+     * @pre O hotel deve estar inicializado
+     * @post Se bem-sucedido, o apartamento tera status OCUPADO e o hospede sera armazenado
+     */
     public boolean realizarCheckin(int andar, int numero, Hospede hospede) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
@@ -62,6 +87,18 @@ public class Hotel {
         return true;
     }
 
+    /**
+     * Realiza o check-out de um apartamento, liberando para uma nova reserva
+     * ou ocupacao e removendo o vinculo com o hospede.
+     *
+     * @param andar Numero do andar (0 a 19)
+     * @param numero Numero do apartamento no andar (0 a 13)
+     * @return true se o check-out foi bem-sucedido
+     * @throws IllegalArgumentException se andar ou numero forem invalidos
+     *
+     * @pre O hotel deve estar inicializado
+     * @post Se bem-sucedido, o apartamento tera status LIVRE e nenhum hospede associado
+     */
     public boolean realizarCheckout(int andar, int numero) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
@@ -71,6 +108,18 @@ public class Hotel {
         return true;
     }
 
+    /**
+     * Cancela a reserva de um apartamento, liberando para uma nova reserva
+     * ou ocupacao e removendo o vinculo com o hospede associado.
+     *
+     * @param andar Numero do andar (0 a 19)
+     * @param numero Numero do apartamento no andar (0 a 13)
+     * @return true se o cancelamento foi bem-sucedido
+     * @throws IllegalArgumentException se andar ou numero forem invalidos
+     *
+     * @pre O hotel deve estar inicializado
+     * @post Se bem-sucedido, o apartamento tera status LIVRE e nenhum hospede associado
+     */
     public boolean cancelarReserva(int andar, int numero) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
@@ -80,6 +129,13 @@ public class Hotel {
         return true;
     }
 
+    /**
+     * Exibe o mapa de ocupacao do hotel, mostrando cada apartamento
+     * e seus respectivos status.
+     *
+     * @pre O hotel deve estar inicializado
+     * @post exibição da situação de ocupacao do hotel
+     */
     public void mostrarMapa() {
         char c;
         for (int a = 0; a < NUM_ANDARES; a++) {
