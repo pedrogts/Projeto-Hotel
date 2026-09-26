@@ -58,6 +58,20 @@ public class Hotel {
         throw new UnsupportedOperationException("Implementar cancelarReserva");
     }
 
+    public void consultarApartamento(int andar, int numero) {
+        if (!aptoValido(andar, numero)) {
+            throw new IllegalArgumentException("Andar ou número de apartamento inválido.");
+        }
+
+        Apartamento apto = getApartamento(andar, numero);
+
+        System.out.println("Apartamento [" + andar + "][" + numero + "] - Status: " + apto.getStatus());
+
+        if (!apto.estaLivre()) {
+            System.out.println("Dados do Hóspede: " + apto.getHospede().toString());
+        }
+    }
+
     public void mostrarMapa() {
         throw new UnsupportedOperationException("Implementar mostrarMapa");
     }
