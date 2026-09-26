@@ -114,7 +114,15 @@ public class Hotel {
     }
 
     public float calcularTaxaReservas() {
-        throw new UnsupportedOperationException("Implementar calcularTaxaReservas");
+        int reservados = 0;
+        for (int a = 0; a < NUM_ANDARES; a++) {
+            for (int n = 0; n < APTOS_POR_ANDAR; n++) {
+                if (matriz[a][n].estaReservado()) {
+                    reservados++;
+                }
+            }
+        }
+        return reservados / TOTAL_APARTAMENTOS;
     }
 
     public void cadastrarServico(String nome, float preco) {
