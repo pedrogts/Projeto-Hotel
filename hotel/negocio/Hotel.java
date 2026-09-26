@@ -58,6 +58,14 @@ public class Hotel {
         throw new UnsupportedOperationException("Implementar cancelarReserva");
     }
 
+    /**
+     * Consulta a situação de um apartamento específico e exibe os dados do hóspede (se houver).
+     * @param andar Número do andar (0 a 19)
+     * @param numero Número do apartamento no andar (0 a 13)
+     * @throws IllegalArgumentException se o andar ou o número forem inválidos
+     * @pre O hotel deve estar inicializado.
+     * @post Exibe o status do apartamento e os dados do hóspede (se ocupado ou reservado) no terminal.
+     */
     public void consultarApartamento(int andar, int numero) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou número de apartamento inválido.");
