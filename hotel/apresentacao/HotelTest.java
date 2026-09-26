@@ -384,4 +384,19 @@ public class HotelTest {
             System.out.println("FALHOU: testarHospedesComMesmoCpfSaoIguais (excecao inesperada: " + e.getClass().getSimpleName() + ")");
         }
     }
+
+    static void testarPrecoApartamentoSimplesEPremium(){
+        total++;
+        Apartamento aptoSimples = new ApartamentoSimples();
+        Apartamento aptoPremium = new ApartamentoPremium();
+
+        float precoSimples = aptoSimples.getPrecoDiaria();
+        float precoPremium = aptoPremium.getPrecoDiaria();
+
+        if (precoSimples == 150.0f && precoPremium == 350.0f) {
+            passou++;
+        } else {
+            System.out.println("FALHOU: testarPrecoApartamentoSimplesEPremium");
+        }
+    }
 }
