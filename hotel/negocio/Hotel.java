@@ -7,6 +7,7 @@ public class Hotel {
     public static final int NUM_ANDARES = 20;
     public static final int APTOS_POR_ANDAR = 14;
     public static final int SIMPLES_POR_ANDAR = 8;
+    private static final float TOTAL_APARTAMENTOS = NUM_ANDARES * APTOS_POR_ANDAR;
 
     private Apartamento[][] matriz;
     private ArrayList<Servico> servicos;
@@ -101,8 +102,15 @@ public class Hotel {
     }
 
     public float calcularTaxaOcupacao() {
-        return 0f;
-        //throw new UnsupportedOperationException("Implementar calcularTaxaOcupacao");
+        int ocupados = 0;
+        for (int a = 0; a < NUM_ANDARES; a++) {
+            for (int n = 0; n < APTOS_POR_ANDAR; n++) {
+                if (matriz[a][n].estaOcupado()) {
+                    ocupados++;
+                }
+            }
+        }
+        return ocupados / TOTAL_APARTAMENTOS;
     }
 
     public float calcularTaxaReservas() {
