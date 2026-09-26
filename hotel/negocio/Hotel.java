@@ -84,13 +84,6 @@ public class Hotel {
         throw new UnsupportedOperationException("Implementar mostrarMapa");
     }
 
-    public void consultarApartamento(int andar, int numero) {
-        if (!aptoValido(andar, numero)) {
-            throw new IllegalArgumentException("Andar ou numero invalido");
-        }
-        throw new UnsupportedOperationException("Implementar consultarApartamento");
-    }
-
     public float calcularTaxaOcupacao() {
         throw new UnsupportedOperationException("Implementar calcularTaxaOcupacao");
     }
