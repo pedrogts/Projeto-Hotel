@@ -93,7 +93,15 @@ public class Hotel {
     }
 
     public void mostrarMapa() {
-        throw new UnsupportedOperationException("Implementar mostrarMapa");
+        char c;
+        for (int a = 0; a < NUM_ANDARES; a++) {
+            System.out.print("Andar " + (a+1) + ": ");
+            for (int n = 0; n < APTOS_POR_ANDAR; n++) {
+                c = matriz[a][n].getSymbol();
+                System.out.print(c + "\t");
+            }
+            System.out.println();
+        }
     }
 
     public void consultarApartamento(int andar, int numero) {
