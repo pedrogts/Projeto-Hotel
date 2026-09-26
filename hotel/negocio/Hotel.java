@@ -49,11 +49,7 @@ public class Hotel {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
         Apartamento apto = getApartamento(andar,numero);
-        try{
-            apto.reservar(hospede);
-        } catch(IllegalStateException | IllegalArgumentException e) {
-            return false;
-        }
+        apto.reservar(hospede);
         return true;
     }
 
@@ -62,11 +58,7 @@ public class Hotel {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
         Apartamento apto = getApartamento(andar, numero);
-        try {
-            apto.checkin(hospede);
-        } catch (IllegalStateException | IllegalArgumentException e) {
-            return false;
-        }
+        apto.checkin(hospede);
         return true;
     }
 
@@ -75,11 +67,7 @@ public class Hotel {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
         Apartamento apto = getApartamento(andar, numero);
-        try {
-            apto.checkout();
-        } catch (IllegalStateException | IllegalArgumentException e) {
-            return false;
-        }
+        apto.checkout();
         return true;
     }
 
