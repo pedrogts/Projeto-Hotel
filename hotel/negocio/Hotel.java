@@ -19,6 +19,14 @@ public class Hotel {
         inicializar();
     }
 
+    /**
+     * Cria o hotel com todos os apartamentos livres, já diferenciados entre
+     * Simples e Premium conforme a distribuição por andar.
+     *
+     * @pre Nenhuma
+     * @post A matriz fica preenchida com todos os apartamentos em status LIVRE e
+     *       sem hóspede; as listas de serviços e consumos começam vazias
+     */
     private void inicializar() {
         for (int a = 0; a < NUM_ANDARES; a++) {
             for (int n = 0; n < APTOS_POR_ANDAR; n++) {
@@ -107,6 +115,17 @@ public class Hotel {
         throw new UnsupportedOperationException("Implementar emitirFatura");
     }
 
+    /**
+     * Devolve o apartamento localizado nas coordenadas informadas.
+     *
+     * @param andar número do andar, de 0 a {@value #NUM_ANDARES} menos um
+     * @param numero número do apartamento no andar, de 0 a {@value #APTOS_POR_ANDAR} menos um
+     * @return o apartamento naquela posição
+     * @throws IllegalArgumentException se as coordenadas estiverem fora dos limites
+     *
+     * @pre As coordenadas devem estar dentro dos limites do hotel
+     * @post Nenhum objeto é alterado
+     */
     public Apartamento getApartamento(int andar, int numero) {
         return matriz[andar][numero];
     }
