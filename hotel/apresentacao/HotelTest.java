@@ -23,6 +23,8 @@ public class HotelTest {
         testarCancelarReservaFeita();
         testarCancelarReservaEmAptoLivre();
         testarCancelarReservaEmAptoOcupado();
+        testarConsultarApartamentoValido();
+        testarConsultarApartamentoInvalido();
 
         //Testes Hospede
         testarFalhaHospedeComCPFNulo();
