@@ -38,6 +38,9 @@ public class HotelTest {
         testarHotelReservarApto();
         testarHotelRealizarCheckinApto();
         testarHotelRealizarCheckoutApto();
+
+        //Taxa de Ocupacao do Hotel
+        testarTaxaOcupacaoComHotelVazio();
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -473,6 +476,22 @@ public class HotelTest {
             }
         } catch (Exception e) {
             System.out.println("FALHOU: testarHotelRealizarCheckoutApto (" + e.getMessage() + ")");
+        }
+    }
+
+    static void testarTaxaOcupacaoComHotelVazio() {
+        total++;
+
+        try {
+            Hotel hotel = new Hotel();
+
+            if (hotel.calcularTaxaOcupacao() == 0f) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarTaxaOcupacaoComHotelVazio");
+            }
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarTaxaOcupacaoComHotelVazio (excecao inesperada: " + e.getClass().getSimpleName() + ")");
         }
     }
 }
