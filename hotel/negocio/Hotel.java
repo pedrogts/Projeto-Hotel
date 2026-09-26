@@ -47,7 +47,13 @@ public class Hotel {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
-        throw new UnsupportedOperationException("Implementar reservarApartamento");
+        Apartamento apto = getApartamento(andar,numero);
+        try{
+            apto.reservar(hospede);
+        } catch(IllegalStateException | IllegalArgumentException e) {
+            return false;
+        }
+        return true;
     }
 
     public boolean realizarCheckin(int andar, int numero, Hospede hospede) {
