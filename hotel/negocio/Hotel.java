@@ -101,6 +101,14 @@ public class Hotel {
         throw new UnsupportedOperationException("Implementar consultarApartamento");
     }
 
+    /**
+     * Calcula a proporção de apartamentos do hotel que estão ocupados (REQ07).
+     *
+     * @return valor entre 0.0 e 1.0, onde 1.0 significa o hotel totalmente ocupado
+     *
+     * @pre Nenhuma
+     * @post Nenhum objeto é alterado
+     */
     public float calcularTaxaOcupacao() {
         int ocupados = 0;
         for (int a = 0; a < NUM_ANDARES; a++) {
@@ -113,6 +121,14 @@ public class Hotel {
         return ocupados / TOTAL_APARTAMENTOS;
     }
 
+    /**
+     * Calcula a proporção de apartamentos do hotel que estão reservados (REQ07).
+     *
+     * @return valor entre 0.0 e 1.0, onde 1.0 significa todos os apartamentos reservados
+     *
+     * @pre Nenhuma
+     * @post Nenhum objeto é alterado
+     */
     public float calcularTaxaReservas() {
         int reservados = 0;
         for (int a = 0; a < NUM_ANDARES; a++) {
