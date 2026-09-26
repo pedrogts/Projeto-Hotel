@@ -73,7 +73,12 @@ public class Hotel {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
-        //throw new UnsupportedOperationException("Implementar realizarCheckout");
+        Apartamento apto = getApartamento(andar, numero);
+        try {
+            apto.checkout();
+        } catch (IllegalStateException | IllegalArgumentException e) {
+            return false;
+        }
         return true;
     }
 
