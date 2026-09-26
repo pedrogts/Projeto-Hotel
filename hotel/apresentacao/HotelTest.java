@@ -33,6 +33,23 @@ public class HotelTest {
         testarFalhaHospedeComCelularNulo();
         testarFalhaHospedeComEmailNulo();
         testarHospedesComMesmoCpfSaoIguais();
+
+        //Teste Apartamento Simples e Premium
+        testarPrecoApartamentoSimplesEPremium();
+        testarHotelCriaSimplesEPremiumPorAndar();
+        testarHotelReservarApto();
+        testarHotelRealizarCheckinApto();
+        testarHotelRealizarCheckoutApto();
+        testarHotelCancelarReserva();
+
+
+        //Taxa de Ocupacao do Hotel
+        testarTaxaOcupacaoComHotelVazio();
+        testarTaxaOcupacaoComUmApartamentoOcupado();
+        testarTaxaReservasComUmApartamentoReservado();
+
+        //Visualização do mapa
+        testarHotelMostrarMapaNaoLancaExcecao();
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -415,6 +432,162 @@ public class HotelTest {
             passou++;
         } catch (Exception e) {
             System.out.println("FALHOU: testarConsultarApartamentoInvalido - Lançou o tipo errado de exceção: " + e.getClass().getSimpleName());
+        }
+    }
+
+    static void testarPrecoApartamentoSimplesEPremium(){
+        total++;
+        Apartamento aptoSimples = new ApartamentoSimples();
+        Apartamento aptoPremium = new ApartamentoPremium();
+
+        float precoSimples = aptoSimples.getPrecoDiaria();
+        float precoPremium = aptoPremium.getPrecoDiaria();
+
+        if (precoSimples == 150.0f && precoPremium == 350.0f) {
+            passou++;
+        } else {
+            System.out.println("FALHOU: testarPrecoApartamentoSimplesEPremium");
+        }
+    }
+
+    static void testarHotelCriaSimplesEPremiumPorAndar() {
+        total++;
+
+        try {
+            Hotel hotel = new Hotel();
+
+            boolean ok = hotel.getApartamento(0, 0).getPrecoDiaria() == 150f
+                    && hotel.getApartamento(0, 7).getPrecoDiaria() == 150f
+                    && hotel.getApartamento(0, 8).getPrecoDiaria() == 350f
+                    && hotel.getApartamento(0, 13).getPrecoDiaria() == 350f;
+
+            if (ok) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarHotelCriaSimplesEPremiumPorAndar");
+            }
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarHotelCriaSimplesEPremiumPorAndar (excecao inesperada: " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarHotelReservarApto(){
+        total++;
+        Hotel hotel = new Hotel();
+
+        Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        hotel.reservarApartamento(0,0,h);
+        Apartamento apto = hotel.getApartamento(0,0);
+
+        if(apto.estaReservado() && apto.getHospede() != null && apto.getPrecoDiaria() == 150f){
+            passou++;
+        } else{
+            System.out.println("FALHOU: testarHotelReservarAptoSimples");
+        }
+    }
+
+    static void testarHotelRealizarCheckinApto(){
+        total++;
+        Hotel hotel = new Hotel();
+        Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        hotel.realizarCheckin(0,0, h);
+        Apartamento apto = hotel.getApartamento(0,0);
+
+        if (apto.estaOcupado() && apto.getHospede().equals(h)) {
+            passou++;
+        } else {
+            System.out.println("FALHOU: testarHotelRealizarCheckinApto");
+        }
+    }
+
+    static void testarHotelRealizarCheckoutApto(){
+        total++;
+        Hotel hotel = new Hotel();
+        Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        hotel.realizarCheckin(0, 0, h);
+        hotel.realizarCheckout(0, 0);
+        Apartamento apto = hotel.getApartamento(0, 0);
+
+        if (apto.estaLivre() && apto.getHospede() == null) {
+            passou++;
+        } else {
+            System.out.println("FALHOU: testarHotelRealizarCheckoutApto");
+        }
+    }
+
+    static void testarHotelCancelarReserva(){
+        total++;
+        Hotel hotel = new Hotel();
+        Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        boolean sucesso_cancelar;
+        hotel.reservarApartamento(0,0,h);
+        sucesso_cancelar = hotel.cancelarReserva(0,0);
+        Apartamento apto = hotel.getApartamento(0,0);
+        if(sucesso_cancelar && apto.estaLivre() && apto.getHospede() == null){
+            passou++;
+        } else{
+            System.out.println("FALHOU: testarHotelCancelarReserva");
+        }
+    }
+
+    static void testarTaxaOcupacaoComHotelVazio() {
+        total++;
+
+        try {
+            Hotel hotel = new Hotel();
+
+            if (hotel.calcularTaxaOcupacao() == 0f) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarTaxaOcupacaoComHotelVazio");
+            }
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarTaxaOcupacaoComHotelVazio (excecao inesperada: " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarTaxaOcupacaoComUmApartamentoOcupado() {
+        total++;
+
+        try {
+            Hotel hotel = new Hotel();
+            hotel.realizarCheckin(0, 0, new Hospede("123", "Joao", "Rua X", "9999", "joao@x"));
+
+            if (hotel.calcularTaxaOcupacao() == 1f / 280f) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarTaxaOcupacaoComUmApartamentoOcupado");
+            }
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarTaxaOcupacaoComUmApartamentoOcupado (excecao inesperada: " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarTaxaReservasComUmApartamentoReservado() {
+        total++;
+
+        try {
+            Hotel hotel = new Hotel();
+            hotel.reservarApartamento(0, 0, new Hospede("123", "Joao", "Rua X", "9999", "joao@x"));
+
+            if (hotel.calcularTaxaReservas() == 1f / 280f) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarTaxaReservasComUmApartamentoReservado");
+            }
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarTaxaReservasComUmApartamentoReservado (excecao inesperada: " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarHotelMostrarMapaNaoLancaExcecao(){
+        total++;
+        try {
+            Hotel hotel = new Hotel();
+            hotel.mostrarMapa();
+            passou++;
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarHotelMostrarMapaNaoLancaExcecao (" + e.getMessage() + ")");
         }
     }
 }
