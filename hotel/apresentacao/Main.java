@@ -36,6 +36,10 @@ public class Main {
 
     public static void main(String[] args) {
         int opcao;
+        int andar;
+        int numero;
+        Hospede h;
+
         do {
             System.out.println("\n=== SISTEMA DE GESTÃO DE HOTEL ===");
             System.out.println("1  - Reservar apartamento");
@@ -66,42 +70,65 @@ public class Main {
             try {
                 switch (opcao) {
                     case 1:
-                        int andar = lerAndar();
-                        int numero = lerNumero();
-                        Hospede h = lerHospede();
-                        if (hotel.reservarApartamento(andar, numero, h)) {
-                            System.out.println("Reserva realizada com sucesso.");
-                        } else {
-                            System.out.println("Não foi possível reservar.");
+                        try {
+                            andar = lerAndar();
+                            numero = lerNumero();
+                            h = lerHospede();
+
+                            if (hotel.reservarApartamento(andar, numero, h)) {
+                                System.out.println("Reserva realizada com sucesso.");
+                            } else {
+                                System.out.println("Não foi possível reservar.");
+                            }
+
+                        }catch (IllegalStateException | IllegalArgumentException e){
+                            System.out.println(e.getMessage());
                         }
+
                         break;
+
                     case 2:
-                        andar = lerAndar();
-                        numero = lerNumero();
-                        h = lerHospede();
-                        if (hotel.realizarCheckin(andar, numero, h)) {
-                            System.out.println("Check-in realizado com sucesso.");
-                        } else {
-                            System.out.println("Não foi possível realizar check-in.");
+                        try {
+                            andar = lerAndar();
+                            numero = lerNumero();
+                            h = lerHospede();
+                            if (hotel.realizarCheckin(andar, numero, h)) {
+                                System.out.println("Check-in realizado com sucesso.");
+                            } else {
+                                System.out.println("Não foi possível realizar check-in.");
+                            }
+                        }catch (IllegalStateException | IllegalArgumentException e){
+                            System.out.println(e.getMessage());
                         }
+
                         break;
                     case 3:
-                        andar = lerAndar();
-                        numero = lerNumero();
-                        if (hotel.realizarCheckout(andar, numero)) {
-                            System.out.println("Check-out realizado com sucesso.");
-                        } else {
-                            System.out.println("Não foi possível realizar check-out.");
+                        try {
+                            andar = lerAndar();
+                            numero = lerNumero();
+                            if (hotel.realizarCheckout(andar, numero)) {
+                                System.out.println("Check-out realizado com sucesso.");
+                            } else {
+                                System.out.println("Não foi possível realizar check-out.");
+                            }
+                        }catch (IllegalStateException | IllegalArgumentException e){
+                            System.out.println(e.getMessage());
                         }
+
                         break;
                     case 4:
-                        andar = lerAndar();
-                        numero = lerNumero();
-                        if (hotel.cancelarReserva(andar, numero)) {
-                            System.out.println("Reserva cancelada com sucesso.");
-                        } else {
-                            System.out.println("Não foi possível cancelar reserva.");
+                        try {
+                            andar = lerAndar();
+                            numero = lerNumero();
+                            if (hotel.cancelarReserva(andar, numero)) {
+                                System.out.println("Reserva cancelada com sucesso.");
+                            } else {
+                                System.out.println("Não foi possível cancelar reserva.");
+                            }
+                        }catch (IllegalStateException | IllegalArgumentException e){
+                            System.out.println(e.getMessage());
                         }
+
                         break;
                     case 5:
                         hotel.mostrarMapa();
