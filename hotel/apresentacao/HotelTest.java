@@ -48,6 +48,11 @@ public class HotelTest {
 
         //Visualização do mapa
         testarHotelMostrarMapaNaoLancaExcecao();
+
+
+        //Testes de integração módulo A e B
+        testarHotelInicializaComMisturaDeTipos();
+
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -555,6 +560,27 @@ public class HotelTest {
             passou++;
         } catch (Exception e) {
             System.out.println("FALHOU: testarHotelMostrarMapaNaoLancaExcecao (" + e.getMessage() + ")");
+        }
+    }
+
+    static void testarHotelInicializaComMisturaDeTipos() {
+        total++;
+        Hotel hotel = new Hotel();
+        int simples = 0, premium = 0;
+        for (int a = 0; a < Hotel.NUM_ANDARES; a++) {
+            for (int n = 0; n < Hotel.APTOS_POR_ANDAR; n++) {
+                Apartamento apto = hotel.getApartamento(a, n);
+                if (apto instanceof ApartamentoSimples) simples++;
+                else if (apto instanceof ApartamentoPremium) premium++;
+            }
+        }
+        int esperadoSimples = 8 * Hotel.NUM_ANDARES;
+        int esperadoPremium = 6 * Hotel.NUM_ANDARES;
+        if (simples == esperadoSimples && premium == esperadoPremium) {
+            passou++;
+        } else {
+            System.out.println("FALHOU: testarHotelInicializaComMisturaDeTipos (simples="
+                    + simples + ", premium=" + premium + ")");
         }
     }
 }
