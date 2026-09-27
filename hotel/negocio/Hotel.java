@@ -139,7 +139,7 @@ public class Hotel {
     public void mostrarMapa() {
         char c;
         for (int a = 0; a < NUM_ANDARES; a++) {
-            System.out.print("Andar " + (a+1) + ": ");
+            System.out.print("Andar " + (a) + ": ");
             for (int n = 0; n < APTOS_POR_ANDAR; n++) {
                 c = matriz[a][n].getSymbol();
                 System.out.print(c + "\t");
