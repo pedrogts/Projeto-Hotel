@@ -23,6 +23,8 @@ public class HotelTest {
         testarCancelarReservaFeita();
         testarCancelarReservaEmAptoLivre();
         testarCancelarReservaEmAptoOcupado();
+        testarConsultarApartamentoValido();
+        testarConsultarApartamentoInvalido();
 
         //Testes Hospede
         testarFalhaHospedeComCPFNulo();
@@ -404,6 +406,37 @@ public class HotelTest {
             }
         } catch (Exception e) {
             System.out.println("FALHOU: testarHospedesComMesmoCpfSaoIguais (excecao inesperada: " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarConsultarApartamentoValido() {
+        total++;
+        try {
+            Hotel hotel = new Hotel();
+
+            System.out.println("--- Início da saída esperada no console ---");
+            hotel.consultarApartamento(0, 0);
+            System.out.println("--- Fim da saída esperada no console ---");
+
+            passou++; // O teste passou
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarConsultarApartamentoValido - Lançou exceção inesperada: " + e.getMessage());
+        }
+    }
+
+    static void testarConsultarApartamentoInvalido() {
+        total++;
+        try {
+            Hotel hotel = new Hotel();
+
+            hotel.consultarApartamento(20, 0);
+
+            System.out.println("FALHOU: testarConsultarApartamentoInvalido - Deveria ter lançado IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+
+            passou++;
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarConsultarApartamentoInvalido - Lançou o tipo errado de exceção: " + e.getClass().getSimpleName());
         }
     }
 
