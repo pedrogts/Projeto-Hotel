@@ -33,6 +33,7 @@ public class HotelTest {
         testarFalhaHospedeComCelularNulo();
         testarFalhaHospedeComEmailNulo();
         testarHospedesComMesmoCpfSaoIguais();
+        testeDevePermitirAlterarHospede();
 
         //Teste Apartamento Simples e Premium
         testarPrecoApartamentoSimplesEPremium();
@@ -406,6 +407,28 @@ public class HotelTest {
             }
         } catch (Exception e) {
             System.out.println("FALHOU: testarHospedesComMesmoCpfSaoIguais (excecao inesperada: " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testeDevePermitirAlterarHospede() {
+        total++;
+
+        Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+
+        h.setCpf("456");
+        h.setNome("Maria");
+        h.setEndereco("Rua Y");
+        h.setCelular("8888");
+        h.setEmail("maria@x");
+
+        if (h.getCpf().equals("456")
+                && h.getNome().equals("Maria")
+                && h.getEndereco().equals("Rua Y")
+                && h.getCelular().equals("8888")
+                && h.getEmail().equals("maria@x")) {
+            passou++;
+        } else {
+            System.out.println("FALHOU: testeDevePermitirAlterarHospede");
         }
     }
 
