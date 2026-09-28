@@ -12,15 +12,14 @@ import java.io.Serializable;
 public class Hospede implements Serializable {
 
 
-    private final String cpf;
-    private final String nome;
-    private final String endereco;
-    private final String celular;
-    private final String email;
+    private String cpf;
+    private String nome;
+    private String endereco;
+    private String celular;
+    private String email;
 
     /**
      * Cria um hóspede com todos os dados de cadastro preenchidos (REQ08).
-     * O objeto é imutável: uma vez criado, nenhum campo pode ser alterado.
      *
      * @param cpf CPF do hóspede, que é sua identidade no sistema
      * @param nome nome completo do hóspede
@@ -142,4 +141,65 @@ public class Hospede implements Serializable {
     public int hashCode() {
         return cpf.hashCode();
     }
+
+    /**
+     * Define o CPF do hóspede.
+     *
+     * @param cpf CPF do hóspede
+     *
+     * @pre O hóspede deve estar inicializado
+     * @post O CPF do hóspede passa a ser o valor informado
+     */
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    /**
+     * Define o nome completo do hóspede.
+     *
+     * @param nome nome completo do hóspede
+     *
+     * @pre O hóspede deve estar inicializado
+     * @post O nome do hóspede passa a ser o valor informado
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    /**
+     * Define o endereço residencial do hóspede.
+     *
+     * @param endereco endereço residencial do hóspede
+     *
+     * @pre O hóspede deve estar inicializado
+     * @post O endereço do hóspede passa a ser o valor informado
+     */
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    /**
+     * Define o telefone celular do hóspede.
+     *
+     * @param celular telefone celular para contato
+     *
+     * @pre O hóspede deve estar inicializado
+     * @post O celular do hóspede passa a ser o valor informado
+     */
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    /**
+     * Define o endereço de e-mail do hóspede.
+     *
+     * @param email endereço de e-mail para contato
+     *
+     * @pre O hóspede deve estar inicializado
+     * @post O e-mail do hóspede passa a ser o valor informado
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }
