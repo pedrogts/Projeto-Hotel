@@ -55,7 +55,7 @@ public class Hospede implements Serializable {
     /**
      * Devolve o CPF do hóspede, que é sua identidade no sistema.
      * @return o CPF informado na criação
-     * @pre Nenhuma
+     * @pre O hóspede deve estar inicializado
      * @post Nenhum objeto é alterado
      */
     public String getCpf() { return cpf; }
@@ -63,7 +63,7 @@ public class Hospede implements Serializable {
     /**
      * Devolve o nome completo do hóspede.
      * @return o nome informado na criação
-     * @pre Nenhuma
+     * @pre O hóspede deve estar inicializado
      * @post Nenhum objeto é alterado
      */
     public String getNome() { return nome; }
@@ -71,7 +71,7 @@ public class Hospede implements Serializable {
     /**
      * Devolve o endereço residencial do hóspede.
      * @return o endereço informado na criação
-     * @pre Nenhuma
+     * @pre O hóspede deve estar inicializado
      * @post Nenhum objeto é alterado
      */
     public String getEndereco() { return endereco; }
@@ -79,7 +79,7 @@ public class Hospede implements Serializable {
     /**
      * Devolve o telefone celular de contato do hóspede.
      * @return o celular informado na criação
-     * @pre Nenhuma
+     * @pre O hóspede deve estar inicializado
      * @post Nenhum objeto é alterado
      */
     public String getCelular() { return celular; }
@@ -87,7 +87,7 @@ public class Hospede implements Serializable {
     /**
      * Devolve o e-mail de contato do hóspede.
      * @return o e-mail informado na criação
-     * @pre Nenhuma
+     * @pre O hóspede deve estar inicializado
      * @post Nenhum objeto é alterado
      */
     public String getEmail() { return email; }
@@ -98,7 +98,7 @@ public class Hospede implements Serializable {
      *
      * @return texto com o nome e o CPF do hóspede
      *
-     * @pre Nenhuma
+     * @pre O hóspede deve estar inicializado
      * @post Nenhum objeto é alterado
      */
     @Override
@@ -133,7 +133,7 @@ public class Hospede implements Serializable {
      *
      * @return o código de espalhamento calculado a partir do CPF
      *
-     * @pre Nenhuma
+     * @pre O hóspede deve estar inicializado
      * @post Nenhum objeto é alterado; chamadas sucessivas devolvem sempre o
      *       mesmo valor enquanto o objeto existir
      */
