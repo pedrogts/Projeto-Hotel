@@ -5,8 +5,7 @@ import java.io.Serializable;
 /**
  * Representa um hóspede do hotel, com os dados de cadastro exigidos pelo REQ08.
  *
- * A classe é imutável: os cinco campos são definidos no construtor e não podem
- * ser alterados depois. A identidade de um hóspede é o seu CPF — é ele que
+ * A identidade de um hóspede é o seu CPF — é ele que
  * equals e hashCode utilizam.
  */
 public class Hospede implements Serializable {
