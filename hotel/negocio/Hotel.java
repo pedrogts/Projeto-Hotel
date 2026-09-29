@@ -60,9 +60,13 @@ public class Hotel {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
-        Apartamento apto = getApartamento(andar,numero);
-        apto.reservar(hospede);
-        return true;
+
+        if(matriz[andar][numero].estaLivre()){
+            matriz[andar][numero].reservar(hospede);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -82,9 +86,13 @@ public class Hotel {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
-        Apartamento apto = getApartamento(andar, numero);
-        apto.checkin(hospede);
-        return true;
+
+        if(matriz[andar][numero].estaLivre() || matriz[andar][numero].estaReservado()){
+            matriz[andar][numero].checkin(hospede);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -103,9 +111,13 @@ public class Hotel {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
-        Apartamento apto = getApartamento(andar, numero);
-        apto.checkout();
-        return true;
+
+        if(matriz[andar][numero].estaOcupado()){
+            matriz[andar][numero].checkout();
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -124,9 +136,13 @@ public class Hotel {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
-        Apartamento apto = getApartamento(andar,numero);
-        apto.cancelarReserva();
-        return true;
+
+        if(matriz[andar][numero].estaReservado()){
+            matriz[andar][numero].cancelarReserva();
+            return true;
+        }
+
+        return false;
     }
 
     /**
