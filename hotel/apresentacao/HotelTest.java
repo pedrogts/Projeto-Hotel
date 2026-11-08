@@ -2,6 +2,9 @@ package hotel.apresentacao;
 
 import hotel.modelo.*;
 import hotel.negocio.Hotel;
+import java.util.ArrayList;
+import java.util.List;
+
 public class HotelTest {
     private static int passou = 0;
     private static int total = 0;
@@ -55,6 +58,9 @@ public class HotelTest {
 
         //Testes de integração módulo A e B
         testarHotelInicializaComMisturaDeTipos();
+
+        //Teste de Fatura
+         testarCalcularTotalDiariasFatura(); 
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
@@ -637,6 +643,26 @@ public class HotelTest {
         } else {
             System.out.println("FALHOU: testarHotelInicializaComMisturaDeTipos (simples="
                     + simples + ", premium=" + premium + ")");
+        }
+    }
+
+    static void testarCalcularTotalDiariasFatura() {
+        total++;
+        float totalDiarias;
+        ApartamentoSimples apto = new ApartamentoSimples();
+        List<Consumo> consumo = new ArrayList<>();
+        Fatura fatura = new Fatura(apto, 1, consumo);
+
+        try {
+            totalDiarias = fatura.getTotalDiarias();
+            if(totalDiarias == 150){
+                passou++;
+            }else{
+                System.out.println("FALHOU: testarCalcularTotalDiariasFatura");    
+            }
+            
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarCalcularTotalDiariasFatura");
         }
     }
 }
