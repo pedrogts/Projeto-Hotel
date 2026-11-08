@@ -6,16 +6,12 @@ public class Fatura {
     private Apartamento apartamento;
     private int dias;
     private List<Consumo> consumos;
-    private float totalDiarias; 
-    private float totalConsumos; 
 
     public Fatura(Apartamento apto, int dias, List<Consumo> consumos) {
         this.apartamento = apto;
         this.dias = dias;
         this.consumos = consumos;
-        this.totalDiarias = getTotalDiarias(); 
     }
-
 
     public float getTotalGeral() {
         throw new UnsupportedOperationException("Implementar calculo da fatura");
@@ -26,7 +22,7 @@ public class Fatura {
     public List<Consumo> getConsumos() { return consumos; }
 
     public float getTotalDiarias() {
-        return dias * apartamento.getPrecoDiaria(); 
+        throw new UnsupportedOperationException("Implementar calculo total de diarias");
     }
 
     public float getTotalConsumos() {
@@ -37,6 +33,4 @@ public class Fatura {
     public String toString() {
         return "Fatura: R$ " + getTotalGeral();
     }
-
-
 }
