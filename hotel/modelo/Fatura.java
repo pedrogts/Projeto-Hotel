@@ -30,7 +30,14 @@ public class Fatura {
     }
 
     public float getTotalConsumos() {
-        throw new UnsupportedOperationException("Implementar calculo total de consumos");
+        float total = 0.0f;
+        
+        if(this.consumos != null){
+            for(Consumo c: consumos){
+                total += c.getTotal();
+            }
+        }
+        return total; 
     }
 
     @Override
