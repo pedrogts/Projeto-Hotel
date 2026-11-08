@@ -60,7 +60,8 @@ public class HotelTest {
         testarHotelInicializaComMisturaDeTipos();
 
         //Teste de Fatura
-         testarCalcularTotalDiariasFatura(); 
+         testarCalcularTotalDiariasFatura();
+         testarCalcularConsumo();
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
@@ -664,5 +665,36 @@ public class HotelTest {
         } catch (Exception e) {
             System.out.println("FALHOU: testarCalcularTotalDiariasFatura");
         }
+    }
+
+    static void testarCalcularConsumo(){
+        total++; 
+        float totalConsumo;
+        ApartamentoSimples apto = new ApartamentoSimples();
+        List<Consumo> listaConsumo = new ArrayList<>();
+
+        Servico agua = new Servico("agua", 5.0f);
+        Servico lanche = new Servico("Lanche", 25.0f);
+
+        Consumo consumo1 = new Consumo(apto, agua, 2);
+        Consumo consumo2 = new Consumo(apto, lanche, 1);
+        
+        listaConsumo.add(consumo1); 
+        listaConsumo.add(consumo2); 
+
+        Fatura fatura = new Fatura(apto, 1, listaConsumo);
+        
+
+        try {
+            totalConsumo = fatura.getTotalConsumos(); 
+            if(totalConsumo == 35.0f){
+                passou++;
+            }else{
+                System.out.println("FALHOU: testarCalcularConsumo");
+            }
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarCalcularConsumo");
+        }
+        
     }
 }
