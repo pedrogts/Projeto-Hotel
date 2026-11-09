@@ -66,6 +66,7 @@ public class HotelTest {
 
         //Teste de Estadia
         testarAlterarAptoEstadia();
+        testarAlterarAptoComAptoNulo();
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
@@ -749,6 +750,21 @@ public class HotelTest {
             }
         } catch(Exception e){
             System.out.println("FALHOU: testarAlterarAptoEstadia");
+        }
+    }
+
+    static void testarAlterarAptoComAptoNulo(){
+        total++;
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        try{
+          estadia.alterarApartamento(null);
+          System.out.println("FALHOU: testarAlterarAptoComAptoNulo");
+        } catch(IllegalArgumentException e){
+            passou++;
+        } catch(Exception e){
+          System.out.println("FALHOU: testarAlterarAptoComAptoNulo - exceção IllegalArgumentException não lançada");
         }
     }
 }
