@@ -36,4 +36,8 @@ public class Estadia {
                      
     }
 
+    public void alterarQtdDias(int dias){
+        throw new UnsupportedOperationException("Implementar alteração de quantidade de dias");
+    } 
+
 }
