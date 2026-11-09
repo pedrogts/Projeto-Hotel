@@ -37,7 +37,12 @@ public class Estadia {
     }
 
     public void alterarQtdDias(int dias){
-        this.dias = dias;
+        if(dias > 0){
+            this.dias = dias;
+        } else{
+            throw new IllegalArgumentException("Não é permitido definir uma estadia com menos de 1 dia");
+        }
+        
     } 
 
 }
