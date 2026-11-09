@@ -22,13 +22,18 @@ public class Estadia {
     public void alterarApartamento(Apartamento apto) {
         if(apto != null){
             this.apto = apto;
-        } else{
+        } else {
             throw new IllegalArgumentException("Não é possível fazer alteração sem apartamento");
         }            
     }
 
     public void alterarResponsavel(Hospede responsavel) {
-        this.responsavel = responsavel;         
+        if(responsavel != null){
+            this.responsavel = responsavel;
+        } else {
+            throw new IllegalArgumentException("Não é possível fazer alteração sem resposável");
+        }
+                     
     }
 
 }
