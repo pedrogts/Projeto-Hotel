@@ -27,5 +27,8 @@ public class Estadia {
         }            
     }
 
-    
+    public void alterarResponsavel(Hospede responsavel) {
+        this.responsavel = responsavel;         
+    }
+
 }
