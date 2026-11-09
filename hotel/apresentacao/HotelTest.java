@@ -64,6 +64,9 @@ public class HotelTest {
          testarCalcularConsumo();
          testarCalculoTotal();
 
+        //Teste de Estadia
+        testarAlterarAptoEstadia();
+
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -729,5 +732,23 @@ public class HotelTest {
             System.out.println("FALHOU: testarCalculoTotal");
         }
 
+    }
+
+    static void testarAlterarAptoEstadia(){
+        total++;
+        Apartamento apto = new Apartamento();
+        Apartamento apto2 = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        try{
+            estadia.alterarApartamento(apto2);
+            if(estadia.getApto().equals(apto2)){
+                passou++;
+            } else{
+              System.out.println("FALHOU: testarAlterarAptoEstadia");  
+            }
+        } catch(Exception e){
+            System.out.println("FALHOU: testarAlterarAptoEstadia");
+        }
     }
 }
