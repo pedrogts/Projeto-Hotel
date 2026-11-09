@@ -13,12 +13,13 @@ public class Fatura {
         this.apartamento = apto;
         this.dias = dias;
         this.consumos = consumos;
-        this.totalDiarias = getTotalDiarias(); 
+        this.totalDiarias = getTotalDiarias();
+        this.totalConsumos = getTotalConsumos(); 
 
     }
 
     public float getTotalGeral() {
-        throw new UnsupportedOperationException("Implementar calculo da fatura");
+        return totalDiarias + totalConsumos; 
     }
 
     public Apartamento getApartamento() { return apartamento; }
@@ -31,7 +32,7 @@ public class Fatura {
 
     public float getTotalConsumos() {
         float total = 0.0f;
-        
+
         if(this.consumos != null){
             for(Consumo c: consumos){
                 total += c.getTotal();
