@@ -20,7 +20,11 @@ public class Estadia {
     public int getDias() { return dias; }
 
     public void alterarApartamento(Apartamento apto) {
-        this.apto = apto;
+        if(apto != null){
+            this.apto = apto;
+        } else{
+            throw new IllegalArgumentException("Não é possível fazer alteração sem apartamento");
+        }            
     }
 
     
