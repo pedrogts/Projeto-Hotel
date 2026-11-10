@@ -12,6 +12,7 @@ public class Hotel {
     private Apartamento[][] matriz;
     private ArrayList<Servico> servicos;
     private ArrayList<Consumo> consumos;
+    private ArrayList<Estadia> estadias;
 
     public Hotel() {
         this.matriz = new Apartamento[NUM_ANDARES][APTOS_POR_ANDAR];
@@ -227,6 +228,10 @@ public class Hotel {
         throw new UnsupportedOperationException("Implementar getConsumosDoApartamento");
     }
 
+    public Estadia buscarEstadia(int id){
+        throw new UnsupportedOperationException("Implementar buscarEstadia");
+    }
+
     public Fatura emitirFatura(int andar, int numero, int dias) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
@@ -251,4 +256,5 @@ public class Hotel {
 
     public ArrayList<Servico> getServicos() { return servicos; }
     public ArrayList<Consumo> getConsumos() { return consumos; }
+    public ArrayList<Estadia> getEstadias() { return estadias; }
 }

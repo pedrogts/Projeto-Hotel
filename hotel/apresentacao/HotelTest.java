@@ -2,6 +2,8 @@ package hotel.apresentacao;
 
 import hotel.modelo.*;
 import hotel.negocio.Hotel;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +74,7 @@ public class HotelTest {
         testarAlterarDiasEstadia();
         testarAlterarDiasEstadiaComDiaMenorQueUm();
         testarCriarListadeConsumosEstadia();
+        testarBuscarEstadiaExistente();
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
@@ -853,6 +856,28 @@ public class HotelTest {
             }
         } catch (Exception e){
             System.out.println("FALHOU: testarCriarListadeConsumosEstadia");
+        }
+    }
+
+    static void testarBuscarEstadiaExistente(){
+        total++;
+        Hotel hotel = new Hotel();
+        List<Estadia> estadias = hotel.getEstadias();
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        estadias.add(estadia);
+        Estadia estadia_existente;
+        
+        try{
+            estadia_existente = hotel.buscarEstadia(1);
+            if(estadia_existente != null && estadia_existente.getIdReserva() == 1){
+                passou++;
+            } else{
+                System.out.println("FALHOU: testarBuscarEstadiaExistente");
+            }
+        } catch (Exception e){
+            System.out.println("FALHOU: testarBuscarEstadiaExistente");
         }
     }
 }
