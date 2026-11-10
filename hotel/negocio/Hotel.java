@@ -52,6 +52,10 @@ public class Hotel {
         return quantidade > 0;
     }
 
+    private boolean servicoValido(int indiceServico) {
+        return indiceServico >= 0 && indiceServico < servicos.size();
+    }
+
     /**
      * Reserva um apartamento, mudando seu status de LIVRE para RESERVADO.
      *
@@ -229,6 +233,10 @@ public class Hotel {
     public boolean registrarConsumo(int andar, int numero, int indiceServico, int quantidade) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
+        }
+
+        if (!servicoValido(indiceServico)) {
+            throw new IllegalArgumentException("Servico invalido");
         }
 
         if(!quantidadeValida(quantidade)){
