@@ -539,12 +539,12 @@ public class HotelTest {
     static void testarHotelReservarApto(){
         total++;
         Hotel hotel = new Hotel();
-
+        ArrayList<Estadia> estadias;
         Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
-        hotel.reservarApartamento(0,0,h);
+        hotel.reservarApartamento(0,0,h, 1);
         Apartamento apto = hotel.getApartamento(0,0);
-
-        if(apto.estaReservado() && apto.getHospede() != null && apto.getPrecoDiaria() == 150f){
+        estadias = hotel.getEstadias();
+        if(apto.estaReservado() && apto.getHospede() != null && apto.getPrecoDiaria() == 150f && !estadias.isEmpty()){
             passou++;
         } else{
             System.out.println("FALHOU: testarHotelReservarAptoSimples");
@@ -585,7 +585,7 @@ public class HotelTest {
         Hotel hotel = new Hotel();
         Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
         boolean sucesso_cancelar;
-        hotel.reservarApartamento(0,0,h);
+        hotel.reservarApartamento(0,0,h, 1);
         sucesso_cancelar = hotel.cancelarReserva(0,0);
         Apartamento apto = hotel.getApartamento(0,0);
         if(sucesso_cancelar && apto.estaLivre() && apto.getHospede() == null){
@@ -633,7 +633,7 @@ public class HotelTest {
 
         try {
             Hotel hotel = new Hotel();
-            hotel.reservarApartamento(0, 0, new Hospede("123", "Joao", "Rua X", "9999", "joao@x"));
+            hotel.reservarApartamento(0, 0, new Hospede("123", "Joao", "Rua X", "9999", "joao@x"), 1);
 
             if (hotel.calcularTaxaReservas() == 1f / 280f) {
                 passou++;
