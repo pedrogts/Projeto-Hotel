@@ -44,6 +44,10 @@ public class Hotel {
         return andar >= 0 && andar < NUM_ANDARES && numero >= 0 && numero < APTOS_POR_ANDAR;
     }
 
+    private boolean precoValido(float preco) {
+        return preco > 0;
+    }
+
     /**
      * Reserva um apartamento, mudando seu status de LIVRE para RESERVADO.
      *
@@ -210,6 +214,10 @@ public class Hotel {
     }
 
     public void cadastrarServico(String nome, float preco) {
+        if(!precoValido(preco)){
+            throw new IllegalArgumentException("Preço de serviõ inválido");
+        }
+        
         Servico servico = new Servico(nome, preco);
         this.servicos.add(servico);
     }
