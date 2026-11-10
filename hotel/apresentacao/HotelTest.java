@@ -62,6 +62,7 @@ public class HotelTest {
         CadastrarServicoHotel();
         CadastrarServicoComPrecoNaoPositivoHotel();
         testarRegistrarConsumoHotel();
+        testarRegistrarConsumoNaoPositivoHotel();
 
         //Teste de Fatura
          testarCalcularTotalDiariasFatura();
@@ -715,6 +716,27 @@ public class HotelTest {
             System.out.println("FALHOU: testarRegistrarConsumoHotel");
         }
             
+    }
+
+    static void testarRegistrarConsumoNaoPositivoHotel(){
+        total++;
+        Hotel hotel = new Hotel();
+        String nome_servico = "s1";
+        float preco_servico = 10;
+        int quantidade = -1;
+        hotel.cadastrarServico(nome_servico, preco_servico);
+        int numero = 0;
+        int andar = 0;
+        boolean ok;
+        try{
+            ok = hotel.registrarConsumo(andar, numero, 0, quantidade);
+            System.out.println("FALHOU: testarRegistrarConsumoNaoPositivoHotel");
+        } catch (IllegalArgumentException e){
+            passou++;
+        } catch (Exception e){
+            System.out.println("FALHOU: testarRegistrarConsumoNaoPositivoHotel");
+        }
+
     }
 
     static void testarCalcularTotalDiariasFatura() {
