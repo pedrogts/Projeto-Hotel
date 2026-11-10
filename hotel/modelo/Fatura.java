@@ -8,11 +8,16 @@ public class Fatura {
     private List<Consumo> consumos;
     private float totalDiarias; 
     private float totalConsumos; 
+    private Estadia estadia;
 
     public Fatura(Apartamento apto, int dias, List<Consumo> consumos) {
         this.apartamento = apto;
         this.dias = dias;
         this.consumos = consumos;
+    }
+
+    public Fatura(Estadia estadia){
+        this.estadia = estadia;
     }
 
     public float getTotalGeral() {
@@ -25,7 +30,14 @@ public class Fatura {
     public int getDias() { return dias; }
     public List<Consumo> getConsumos() { return consumos; }
 
-    public float getTotalDiarias() {
+    public float getTotalDiarias() { 
+        if(estadia != null){
+            int dias = estadia.getDias();
+            Apartamento apto = estadia.getApto();
+            float precoDiaria = apto.getPrecoDiaria();
+            return dias * precoDiaria;
+        }
+         
        return dias * apartamento.getPrecoDiaria();
     }
 
