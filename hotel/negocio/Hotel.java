@@ -210,7 +210,8 @@ public class Hotel {
     }
 
     public void cadastrarServico(String nome, float preco) {
-        throw new UnsupportedOperationException("Implementar cadastrarServico");
+        Servico servico = new Servico(nome, preco);
+        this.servicos.add(servico);
     }
 
     public boolean registrarConsumo(int andar, int numero, int indiceServico, int quantidade) {
