@@ -18,6 +18,7 @@ public class Hotel {
         this.matriz = new Apartamento[NUM_ANDARES][APTOS_POR_ANDAR];
         this.servicos = new ArrayList<>();
         this.consumos = new ArrayList<>();
+        this.estadias = new ArrayList<>();
         inicializar();
     }
 
@@ -229,7 +230,15 @@ public class Hotel {
     }
 
     public Estadia buscarEstadia(int id){
-        throw new UnsupportedOperationException("Implementar buscarEstadia");
+        Estadia estadia = null;
+        int indice = 0;
+        while(estadia == null && indice < this.estadias.size()){
+            if(id == estadias.get(indice).getIdReserva()){
+                estadia = estadias.get(indice);
+            }
+            indice++;
+        }
+        return estadia;
     }
 
     public Fatura emitirFatura(int andar, int numero, int dias) {
