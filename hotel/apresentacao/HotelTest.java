@@ -583,12 +583,14 @@ public class HotelTest {
     static void testarHotelCancelarReserva(){
         total++;
         Hotel hotel = new Hotel();
+        ArrayList<Estadia> estadias;
         Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
         boolean sucesso_cancelar;
         hotel.reservarApartamento(0,0,h, 1);
-        sucesso_cancelar = hotel.cancelarReserva(0,0);
+        sucesso_cancelar = hotel.cancelarReserva(0,0, 0);
         Apartamento apto = hotel.getApartamento(0,0);
-        if(sucesso_cancelar && apto.estaLivre() && apto.getHospede() == null){
+        estadias = hotel.getEstadias();
+        if(sucesso_cancelar && apto.estaLivre() && apto.getHospede() == null && estadias.isEmpty()){
             passou++;
         } else{
             System.out.println("FALHOU: testarHotelCancelarReserva");
