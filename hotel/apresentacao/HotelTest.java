@@ -680,8 +680,10 @@ public class HotelTest {
     static void testarCalcularConsumo(){
         total++; 
         float totalConsumo;
-        ApartamentoSimples apto = new ApartamentoSimples();
-        List<Consumo> listaConsumo = new ArrayList<>();
+        Apartamento apto = new ApartamentoSimples();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        List<Consumo> listaConsumo = estadia.getConsumos();
 
         Servico agua = new Servico("agua", 5.0f);
         Servico lanche = new Servico("Lanche", 25.0f);
@@ -692,9 +694,8 @@ public class HotelTest {
         listaConsumo.add(consumo1); 
         listaConsumo.add(consumo2); 
 
-        Fatura fatura = new Fatura(apto, 1, listaConsumo);
+        Fatura fatura = new Fatura(estadia);
         
-
         try {
             totalConsumo = fatura.getTotalConsumos(); 
             if(totalConsumo == 35.0f){
