@@ -6,7 +6,7 @@ public class Consumo {
     private int quantidade;
 
     public Consumo(Apartamento apto, Servico servico, int quantidade) {
-        if (servico == null) {
+        if (servico == null)  {
             throw new IllegalArgumentException("Campo obrigatório: serviço");
         }
         this.apartamento = apto;
