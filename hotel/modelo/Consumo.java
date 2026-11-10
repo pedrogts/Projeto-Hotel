@@ -8,6 +8,8 @@ public class Consumo {
     public Consumo(Apartamento apto, Servico servico, int quantidade) {
         if (servico == null)  {
             throw new IllegalArgumentException("Campo obrigatório: serviço");
+        } else if (apto == null) {
+            throw new IllegalArgumentException("Campo obrigatório: apartamento");
         }
         this.apartamento = apto;
         this.servico = servico;
