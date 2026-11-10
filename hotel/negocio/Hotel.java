@@ -138,12 +138,13 @@ public class Hotel {
      * @pre O hotel deve estar inicializado
      * @post Se bem-sucedido, o apartamento tera status LIVRE e nenhum hospede associado
      */
-    public boolean cancelarReserva(int andar, int numero) {
+    public boolean cancelarReserva(int andar, int numero, int id) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
         Apartamento apto = getApartamento(andar,numero);
         apto.cancelarReserva();
+        estadias.remove(id);
         return true;
     }
 
