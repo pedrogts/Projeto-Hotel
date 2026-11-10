@@ -75,6 +75,7 @@ public class HotelTest {
         testarAlterarDiasEstadiaComDiaMenorQueUm();
         testarCriarListadeConsumosEstadia();
         testarBuscarEstadiaExistente();
+        testarBuscarEstadiaInexistente();
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
@@ -878,6 +879,26 @@ public class HotelTest {
             }
         } catch (Exception e){
             System.out.println("FALHOU: testarBuscarEstadiaExistente");
+        }
+    }
+
+    static void testarBuscarEstadiaInexistente(){
+        total++;
+        Hotel hotel = new Hotel();
+        List<Estadia> estadias = hotel.getEstadias();
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        estadias.add(estadia);
+        Estadia estadia_existente;
+        
+        try{
+            estadia_existente = hotel.buscarEstadia(2);
+            System.out.println("FALHOU: testarBuscarEstadiaInexistente");
+        } catch(IllegalArgumentException e){
+            passou++;
+        } catch (Exception e){
+            System.out.println("FALHOU: testarBuscarEstadiaInexistente");
         }
     }
 }
