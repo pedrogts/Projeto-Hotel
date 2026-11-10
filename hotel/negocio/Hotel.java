@@ -48,6 +48,10 @@ public class Hotel {
         return preco > 0;
     }
 
+    private boolean quantidadeValida(int quantidade){
+        return quantidade > 0;
+    }
+
     /**
      * Reserva um apartamento, mudando seu status de LIVRE para RESERVADO.
      *
@@ -226,6 +230,11 @@ public class Hotel {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
+
+        if(!quantidadeValida(quantidade)){
+            throw new IllegalArgumentException("Quantidade de consumo invalida");
+        }
+        
         Servico servico = servicos.get(indiceServico);
         Consumo consumo = new Consumo(matriz[andar][numero], servico, quantidade);
         consumos.add(consumo);
