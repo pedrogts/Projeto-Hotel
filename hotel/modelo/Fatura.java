@@ -3,38 +3,35 @@ package hotel.modelo;
 import java.util.List;
 
 public class Fatura {
-    private Apartamento apartamento;
-    private int dias;
-    private List<Consumo> consumos;
     private float totalDiarias; 
     private float totalConsumos; 
+    private Estadia estadia;
 
-    public Fatura(Apartamento apto, int dias, List<Consumo> consumos) {
-        this.apartamento = apto;
-        this.dias = dias;
-        this.consumos = consumos;
-        this.totalDiarias = getTotalDiarias();
-        this.totalConsumos = getTotalConsumos(); 
-
+    public Fatura(Estadia estadia){
+        this.estadia = estadia;
     }
 
     public float getTotalGeral() {
+        totalDiarias = getTotalDiarias();
+        totalConsumos = getTotalConsumos(); 
         return totalDiarias + totalConsumos; 
     }
 
-    public Apartamento getApartamento() { return apartamento; }
-    public int getDias() { return dias; }
-    public List<Consumo> getConsumos() { return consumos; }
+    public Estadia getEstadia() { return estadia; }
 
-    public float getTotalDiarias() {
-       return dias * apartamento.getPrecoDiaria();
+    public float getTotalDiarias() { 
+        int dias = estadia.getDias();
+        Apartamento apto = estadia.getApto();
+        float precoDiaria = apto.getPrecoDiaria();
+        return dias * precoDiaria;
     }
 
     public float getTotalConsumos() {
         float total = 0.0f;
+        List<Consumo> Listaconsumos = estadia.getConsumos();
 
-        if(this.consumos != null){
-            for(Consumo c: consumos){
+        if(Listaconsumos != null){
+            for(Consumo c: Listaconsumos){
                 total += c.getTotal();
             }
         }

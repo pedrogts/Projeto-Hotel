@@ -2,6 +2,7 @@ package hotel.negocio;
 
 import hotel.modelo.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Hotel {
     public static final int NUM_ANDARES = 20;
@@ -12,11 +13,13 @@ public class Hotel {
     private Apartamento[][] matriz;
     private ArrayList<Servico> servicos;
     private ArrayList<Consumo> consumos;
+    private ArrayList<Estadia> estadias;
 
     public Hotel() {
         this.matriz = new Apartamento[NUM_ANDARES][APTOS_POR_ANDAR];
         this.servicos = new ArrayList<>();
         this.consumos = new ArrayList<>();
+        this.estadias = new ArrayList<>();
         inicializar();
     }
 
@@ -250,18 +253,36 @@ public class Hotel {
         return true;
     }
 
-    public ArrayList<Consumo> getConsumosDoApartamento(int andar, int numero) {
-        if (!aptoValido(andar, numero)) {
-            throw new IllegalArgumentException("Andar ou numero invalido");
-        }
-        throw new UnsupportedOperationException("Implementar getConsumosDoApartamento");
+    public List<Consumo> getConsumosDoApartamento(int id) {
+        List<Consumo> listaConsumos;
+        Estadia estadia = buscarEstadia(id);
+        listaConsumos = estadia.getConsumos();
+
+        return listaConsumos;
     }
 
-    public Fatura emitirFatura(int andar, int numero, int dias) {
-        if (!aptoValido(andar, numero)) {
-            throw new IllegalArgumentException("Andar ou numero invalido");
+    public Fatura emitirFatura(int id) {
+        Fatura fatura;
+        Estadia estadia = buscarEstadia(id);
+        fatura = new Fatura(estadia);
+        return fatura;
+    }
+
+    public Estadia buscarEstadia(int id){
+        Estadia estadia = null;
+        int indice = 0;
+        while(estadia == null && indice < this.estadias.size()){
+            if(id == estadias.get(indice).getIdReserva()){
+                estadia = estadias.get(indice);
+            }
+            indice++;
         }
-        throw new UnsupportedOperationException("Implementar emitirFatura");
+
+        if(estadia == null){
+            throw new IllegalArgumentException("Estadia inexistente");
+        }
+
+        return estadia;
     }
 
     /**
@@ -281,4 +302,5 @@ public class Hotel {
 
     public ArrayList<Servico> getServicos() { return servicos; }
     public ArrayList<Consumo> getConsumos() { return consumos; }
+    public ArrayList<Estadia> getEstadias() { return estadias; }
 }

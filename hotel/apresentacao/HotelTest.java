@@ -2,6 +2,8 @@ package hotel.apresentacao;
 
 import hotel.modelo.*;
 import hotel.negocio.Hotel;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +78,21 @@ public class HotelTest {
         testarFalhaConsumoComServicoNulo();
         testarFalhaConsumoComApartamentoNulo();
 
+        //Teste de Estadia
+        testarAlterarAptoEstadia();
+        testarAlterarAptoComAptoNulo();
+        testarAlterarResponsavelEstadia();
+        testarAlterarResponsavelComResponsavelNulo();
+        testarAlterarDiasEstadia();
+        testarAlterarDiasEstadiaComDiaMenorQueUm();
+        testarCriarListadeConsumosEstadia();
+
+        //Teste de Hotel
+        testarConsumosDoApartamento();
+        testarBuscarEstadiaExistente();
+        testarBuscarEstadiaInexistente();
+        testarEmitirFatura();
+        
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -744,10 +761,10 @@ public class HotelTest {
     static void testarCalcularTotalDiariasFatura() {
         total++;
         float totalDiarias;
-        ApartamentoSimples apto = new ApartamentoSimples();
-        List<Consumo> consumo = new ArrayList<>();
-        Fatura fatura = new Fatura(apto, 1, consumo);
-
+        Apartamento apto = new ApartamentoSimples();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        Fatura fatura = new Fatura(estadia);
         try {
             totalDiarias = fatura.getTotalDiarias();
             if(totalDiarias == 150){
@@ -764,8 +781,10 @@ public class HotelTest {
     static void testarCalcularConsumo(){
         total++; 
         float totalConsumo;
-        ApartamentoSimples apto = new ApartamentoSimples();
-        List<Consumo> listaConsumo = new ArrayList<>();
+        Apartamento apto = new ApartamentoSimples();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        List<Consumo> listaConsumo = estadia.getConsumos();
 
         Servico agua = new Servico("agua", 5.0f);
         Servico lanche = new Servico("Lanche", 25.0f);
@@ -776,9 +795,8 @@ public class HotelTest {
         listaConsumo.add(consumo1); 
         listaConsumo.add(consumo2); 
 
-        Fatura fatura = new Fatura(apto, 1, listaConsumo);
+        Fatura fatura = new Fatura(estadia);
         
-
         try {
             totalConsumo = fatura.getTotalConsumos(); 
             if(totalConsumo == 35.0f){
@@ -794,10 +812,11 @@ public class HotelTest {
 
     static void testarCalculoTotal(){
         total++; 
-        ApartamentoSimples apto = new ApartamentoSimples();
-        List<Consumo> listaConsumo = new ArrayList<>();
+        Apartamento apto = new ApartamentoSimples();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        List<Consumo> listaConsumo = estadia.getConsumos();
         float totalGeral; 
-        int dias = 1; 
 
         Servico agua = new Servico("agua", 5.0f);
         Servico lanche = new Servico("Lanche", 25.0f);
@@ -808,7 +827,7 @@ public class HotelTest {
         listaConsumo.add(consumo1); 
         listaConsumo.add(consumo2);
         
-        Fatura fatura = new Fatura(apto, 1, listaConsumo);
+        Fatura fatura = new Fatura(estadia);
 
         try {
             totalGeral = fatura.getTotalGeral();
@@ -820,6 +839,210 @@ public class HotelTest {
             
         } catch (Exception e) {
             System.out.println("FALHOU: testarCalculoTotal");
+        }
+    }
+
+    static void testarAlterarAptoEstadia(){
+        total++;
+        Apartamento apto = new Apartamento();
+        Apartamento apto2 = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        try{
+            estadia.alterarApartamento(apto2);
+            if(estadia.getApto().equals(apto2)){
+                passou++;
+            } else{
+              System.out.println("FALHOU: testarAlterarAptoEstadia");  
+            }
+        } catch(Exception e){
+            System.out.println("FALHOU: testarAlterarAptoEstadia");
+        }
+    }
+
+    static void testarAlterarAptoComAptoNulo(){
+        total++;
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        try{
+          estadia.alterarApartamento(null);
+          System.out.println("FALHOU: testarAlterarAptoComAptoNulo");
+        } catch(IllegalArgumentException e){
+            passou++;
+        } catch(Exception e){
+          System.out.println("FALHOU: testarAlterarAptoComAptoNulo - exceção IllegalArgumentException não lançada");
+        }
+    }
+
+    static void testarAlterarResponsavelEstadia(){
+        total++;
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Hospede hosp2 = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        try{
+            estadia.alterarResponsavel(hosp2);
+            if(estadia.getResponsavel().equals(hosp2)){
+                passou++;
+            } else{
+              System.out.println("FALHOU: testarAlterarResponsavelEstadia");  
+            }
+        } catch(Exception e){
+            System.out.println("FALHOU: testarAlterarResponsavelEstadia");
+        }
+    }
+
+    static void testarAlterarResponsavelComResponsavelNulo(){
+        total++;
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        try{
+          estadia.alterarResponsavel(null);
+          System.out.println("FALHOU: testarAlterarResponsavelComResponsavelNulo");
+        } catch(IllegalArgumentException e){
+            passou++;
+        } catch(Exception e){
+          System.out.println("FALHOU: testarAlterarResponsavelComResponsavelNulo - exceção IllegalArgumentException não lançada");
+        }
+    }
+
+    static void testarAlterarDiasEstadia(){
+        total++;
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        try{
+            estadia.alterarQtdDias(2);
+            if(estadia.getDias() == 2){
+                passou++;
+            } else{
+              System.out.println("FALHOU: testarAlterarDiasEstadia");  
+            }
+        } catch(Exception e){
+            System.out.println("FALHOU: testarAlterarDiasEstadia");
+        }
+    }
+
+    static void testarAlterarDiasEstadiaComDiaMenorQueUm(){
+        total++;
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        try{
+            estadia.alterarQtdDias(0);
+            System.out.println("FALHOU: testarAlterarDiasEstadiaComDiaMenorQueUm");  
+        } catch(IllegalArgumentException e){
+            passou++;
+        } catch(Exception e){
+            System.out.println("FALHOU: testarAlterarDiasEstadiaComDiaMenorQueUm");
+        }
+    }
+
+    static void testarCriarListadeConsumosEstadia(){
+        total++;
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        try{
+            List<Consumo> consumos = estadia.getConsumos();
+            if(consumos != null && consumos.isEmpty()){
+                passou++;
+            } else{
+                System.out.println("FALHOU: testarCriarListadeConsumosEstadia");
+            }
+        } catch (Exception e){
+            System.out.println("FALHOU: testarCriarListadeConsumosEstadia");
+        }
+    }
+
+    static void testarBuscarEstadiaExistente(){
+        total++;
+        Hotel hotel = new Hotel();
+        List<Estadia> estadias = hotel.getEstadias();
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        estadias.add(estadia);
+        Estadia estadia_existente;
+        
+        try{
+            estadia_existente = hotel.buscarEstadia(1);
+            if(estadia_existente != null && estadia_existente.getIdReserva() == 1){
+                passou++;
+            } else{
+                System.out.println("FALHOU: testarBuscarEstadiaExistente");
+            }
+        } catch (Exception e){
+            System.out.println("FALHOU: testarBuscarEstadiaExistente");
+        }
+    }
+
+    static void testarBuscarEstadiaInexistente(){
+        total++;
+        Hotel hotel = new Hotel();
+        List<Estadia> estadias = hotel.getEstadias();
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        estadias.add(estadia);
+        Estadia estadia_existente;
+        
+        try{
+            estadia_existente = hotel.buscarEstadia(2);
+            System.out.println("FALHOU: testarBuscarEstadiaInexistente");
+        } catch(IllegalArgumentException e){
+            passou++;
+        } catch (Exception e){
+            System.out.println("FALHOU: testarBuscarEstadiaInexistente");
+        }
+    }
+
+    static void testarConsumosDoApartamento(){
+        total++;
+        Hotel hotel = new Hotel();
+        List<Estadia> estadias = hotel.getEstadias();
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        estadias.add(estadia);
+
+        List<Consumo> consumo_apartamento;
+
+        try{
+            consumo_apartamento = hotel.getConsumosDoApartamento(1);
+            if(consumo_apartamento != null && consumo_apartamento.equals(estadia.getConsumos())){
+                passou++;
+            } else{
+                System.out.println("FALHOU: testarConsumosDoApartamento");    
+            }
+        } catch (Exception e){
+            System.out.println("FALHOU: testarConsumosDoApartamento");
+        }
+
+    }
+
+    static void testarEmitirFatura(){
+        total++;
+        Hotel hotel = new Hotel();
+        List<Estadia> estadias = hotel.getEstadias();
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        estadias.add(estadia);
+
+        Fatura fatura;
+
+        try{
+            fatura = hotel.emitirFatura(1);
+            if(fatura != null){
+                passou++;
+            } else{
+                System.out.println("FALHOU: testarEmitirFatura");    
+            }
+        } catch (Exception e){
+            System.out.println("FALHOU: testarEmitirFatura");
         }
 
     }
