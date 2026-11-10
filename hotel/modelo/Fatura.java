@@ -43,9 +43,15 @@ public class Fatura {
 
     public float getTotalConsumos() {
         float total = 0.0f;
+        List<Consumo> Listaconsumos;
+        if(estadia != null){
+            Listaconsumos = estadia.getConsumos();
+        } else{
+            Listaconsumos = this.consumos;
+        }
 
-        if(this.consumos != null){
-            for(Consumo c: consumos){
+        if(Listaconsumos != null){
+            for(Consumo c: Listaconsumos){
                 total += c.getTotal();
             }
         }
