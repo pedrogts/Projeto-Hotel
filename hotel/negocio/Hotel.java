@@ -231,6 +231,13 @@ public class Hotel {
         return listaConsumos;
     }
 
+    public Fatura emitirFatura(int id) {
+        Fatura fatura;
+        Estadia estadia = buscarEstadia(id);
+        fatura = new Fatura(estadia);
+        return fatura;
+    }
+
     public Estadia buscarEstadia(int id){
         Estadia estadia = null;
         int indice = 0;
@@ -246,13 +253,6 @@ public class Hotel {
         }
 
         return estadia;
-    }
-
-    public Fatura emitirFatura(int id) {
-        Fatura fatura;
-        Estadia estadia = buscarEstadia(id);
-        fatura = new Fatura(estadia);
-        return fatura;
     }
 
     /**
