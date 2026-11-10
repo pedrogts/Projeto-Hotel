@@ -79,7 +79,8 @@ public class HotelTest {
         testarConsumosDoApartamento();
         testarBuscarEstadiaExistente();
         testarBuscarEstadiaInexistente();
-
+        testarEmitirFatura();
+        
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -925,6 +926,30 @@ public class HotelTest {
             }
         } catch (Exception e){
             System.out.println("FALHOU: testarConsumosDoApartamento");
+        }
+
+    }
+
+    static void testarEmitirFatura(){
+        total++;
+        Hotel hotel = new Hotel();
+        List<Estadia> estadias = hotel.getEstadias();
+        Apartamento apto = new Apartamento();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Estadia estadia = new Estadia(1, apto, hosp, 1);
+        estadias.add(estadia);
+
+        Fatura fatura;
+
+        try{
+            fatura = hotel.emitirFatura(1);
+            if(fatura != null){
+                passou++;
+            } else{
+                System.out.println("FALHOU: testarEmitirFatura");    
+            }
+        } catch (Exception e){
+            System.out.println("FALHOU: testarEmitirFatura");
         }
 
     }
