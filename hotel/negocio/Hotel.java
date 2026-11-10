@@ -14,6 +14,7 @@ public class Hotel {
     private ArrayList<Servico> servicos;
     private ArrayList<Consumo> consumos;
     private ArrayList<Estadia> estadias;
+    private int idEstadia = 0;
 
     public Hotel() {
         this.matriz = new Apartamento[NUM_ANDARES][APTOS_POR_ANDAR];
@@ -71,11 +72,13 @@ public class Hotel {
      * @pre O hotel deve estar inicializado
      * @post Se bem-sucedido, o apartamento tera status RESERVADO e o hospede sera armazenado
      */
-    public boolean reservarApartamento(int andar, int numero, Hospede hospede) {
+    public boolean reservarApartamento(int andar, int numero, Hospede hospede, int dias) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
         Apartamento apto = getApartamento(andar,numero);
+        Estadia estadia = new Estadia(++idEstadia, apto, hospede, dias);
+        estadias.add(estadia);
         apto.reservar(hospede);
         return true;
     }
