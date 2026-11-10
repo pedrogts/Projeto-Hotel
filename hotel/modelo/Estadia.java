@@ -1,16 +1,21 @@
 package hotel.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Estadia {
     private int idReserva;
     private Apartamento apto;
     private Hospede responsavel;
     private int dias;
+    private List<Consumo> consumos;
     
     public Estadia(int idReserva, Apartamento apto, Hospede responsavel, int dias){
         this.idReserva = idReserva;
         this.apto = apto;
         this.responsavel = responsavel;
         this.dias = dias;
+        consumos = new ArrayList<>();
     }
 
     public int getIdReserva() { return idReserva; }
@@ -18,6 +23,7 @@ public class Estadia {
     public Hospede getResponsavel() { return responsavel; }
 
     public int getDias() { return dias; }
+    public List<Consumo> getConsumos() { return consumos; }
 
     public void alterarApartamento(Apartamento apto) {
         if(apto != null){
