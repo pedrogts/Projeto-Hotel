@@ -34,11 +34,18 @@ public class Main {
         return Integer.parseInt(scanner.nextLine());
     }
 
+    private static int lerDias() {
+        System.out.print("Quantidade de dias: ");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
     public static void main(String[] args) {
         int opcao;
         int andar;
         int numero;
         Hospede h;
+        int dias;
+        int idEstadia;
 
         do {
             System.out.println("\n=== SISTEMA DE GESTÃO DE HOTEL ===");
@@ -74,8 +81,9 @@ public class Main {
                             andar = lerAndar();
                             numero = lerNumero();
                             h = lerHospede();
+                            dias = lerDias();
 
-                            if (hotel.reservarApartamento(andar, numero, h)) {
+                            if (hotel.reservarApartamento(andar, numero, h, dias)) {
                                 System.out.println("Reserva realizada com sucesso.");
                             } else {
                                 System.out.println("Não foi possível reservar.");
@@ -120,7 +128,9 @@ public class Main {
                         try {
                             andar = lerAndar();
                             numero = lerNumero();
-                            if (hotel.cancelarReserva(andar, numero)) {
+                            System.out.print("Número da estadia: ");
+                            idEstadia = Integer.parseInt(scanner.nextLine());
+                            if (hotel.cancelarReserva(andar, numero, idEstadia)) {
                                 System.out.println("Reserva cancelada com sucesso.");
                             } else {
                                 System.out.println("Não foi possível cancelar reserva.");
@@ -164,12 +174,10 @@ public class Main {
                         }
                         break;
                     case 10:
-                        andar = lerAndar();
-                        numero = lerNumero();
-                        System.out.print("Quantidade de dias: ");
-                        int dias = Integer.parseInt(scanner.nextLine());
-                        Fatura fatura = hotel.emitirFatura(andar, numero, dias);
-                        System.out.println(fatura);
+                        System.out.print("Número da estadia: ");
+                        idEstadia = Integer.parseInt(scanner.nextLine());
+                        Fatura fatura = hotel.emitirFatura(idEstadia);
+                       // System.out.println(fatura);
                         break;
                     case 11:
                         new RelatorioSvc(hotel).gerarRelatorioOcupacao();
