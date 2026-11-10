@@ -555,10 +555,11 @@ public class HotelTest {
         total++;
         Hotel hotel = new Hotel();
         Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
-        hotel.realizarCheckin(0,0, h);
+        hotel.realizarCheckin(0,0, h, 2);
         Apartamento apto = hotel.getApartamento(0,0);
+        ArrayList<Estadia> estadias = hotel.getEstadias();
 
-        if (apto.estaOcupado() && apto.getHospede().equals(h)) {
+        if (apto.estaOcupado() && apto.getHospede().equals(h) && estadias.size() == 1 && estadias.get(0).getDias() == 2) {
             passou++;
         } else {
             System.out.println("FALHOU: testarHotelRealizarCheckinApto");
@@ -569,7 +570,7 @@ public class HotelTest {
         total++;
         Hotel hotel = new Hotel();
         Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
-        hotel.realizarCheckin(0, 0, h);
+        hotel.realizarCheckin(0, 0, h, 1);
         hotel.realizarCheckout(0, 0);
         Apartamento apto = hotel.getApartamento(0, 0);
 
@@ -618,7 +619,7 @@ public class HotelTest {
 
         try {
             Hotel hotel = new Hotel();
-            hotel.realizarCheckin(0, 0, new Hospede("123", "Joao", "Rua X", "9999", "joao@x"));
+            hotel.realizarCheckin(0, 0, new Hospede("123", "Joao", "Rua X", "9999", "joao@x", 1));
 
             if (hotel.calcularTaxaOcupacao() == 1f / 280f) {
                 passou++;
