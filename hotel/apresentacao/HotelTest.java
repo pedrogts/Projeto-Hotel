@@ -619,7 +619,7 @@ public class HotelTest {
 
         try {
             Hotel hotel = new Hotel();
-            hotel.realizarCheckin(0, 0, new Hospede("123", "Joao", "Rua X", "9999", "joao@x", 1));
+            hotel.realizarCheckin(0, 0, new Hospede("123", "Joao", "Rua X", "9999", "joao@x"),1);
 
             if (hotel.calcularTaxaOcupacao() == 1f / 280f) {
                 passou++;
