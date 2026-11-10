@@ -217,7 +217,7 @@ public class Hotel {
         if(!precoValido(preco)){
             throw new IllegalArgumentException("Preço de serviõ inválido");
         }
-        
+
         Servico servico = new Servico(nome, preco);
         this.servicos.add(servico);
     }
@@ -226,7 +226,11 @@ public class Hotel {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
-        throw new UnsupportedOperationException("Implementar registrarConsumo");
+        Servico servico = servicos.get(indiceServico);
+        Consumo consumo = new Consumo(matriz[andar][numero], servico, quantidade);
+        consumos.add(consumo);
+        
+        return true;
     }
 
     public ArrayList<Consumo> getConsumosDoApartamento(int andar, int numero) {
