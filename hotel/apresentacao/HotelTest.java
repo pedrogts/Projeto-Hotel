@@ -59,6 +59,8 @@ public class HotelTest {
         //Testes de integração módulo A e B
         testarHotelInicializaComMisturaDeTipos();
 
+        CadastrarServicoHotel();
+
         //Teste de Fatura
          testarCalcularTotalDiariasFatura();
          testarCalcularConsumo();
@@ -645,6 +647,25 @@ public class HotelTest {
         } else {
             System.out.println("FALHOU: testarHotelInicializaComMisturaDeTipos (simples="
                     + simples + ", premium=" + premium + ")");
+        }
+    }
+
+    static void CadastrarServicoHotel(){
+        total++;
+        Hotel hotel = new Hotel();
+        List<Servico> servicos;
+        String nome = "s1";
+        float preco = 10;
+        try{
+            hotel.cadastrarServico(nome, preco);
+            servicos = hotel.getServicos();
+            if(servicos != null && servicos.size() == 1){
+                passou++;
+            } else{
+                System.out.println("FALHOU: CadastrarServicoHotel");
+            }
+        } catch (Exception e){
+            System.out.println("FALHOU: CadastrarServicoHotel");
         }
     }
 
