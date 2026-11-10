@@ -13,12 +13,11 @@ public class Fatura {
         this.apartamento = apto;
         this.dias = dias;
         this.consumos = consumos;
-        this.totalDiarias = getTotalDiarias();
-        this.totalConsumos = getTotalConsumos(); 
-
     }
 
     public float getTotalGeral() {
+        totalDiarias = getTotalDiarias();
+        totalConsumos = getTotalConsumos(); 
         return totalDiarias + totalConsumos; 
     }
 
