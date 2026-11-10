@@ -5,6 +5,9 @@ public class Servico {
     private float preco;
 
     public Servico(String nome, float preco) {
+        if (nome == null){
+            throw new IllegalArgumentException("Campo obrigatório: nome");
+        }
         this.nome = nome;
         this.preco = preco;
     }
