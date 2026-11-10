@@ -2,6 +2,7 @@ package hotel.negocio;
 
 import hotel.modelo.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Hotel {
     public static final int NUM_ANDARES = 20;
@@ -222,11 +223,12 @@ public class Hotel {
         throw new UnsupportedOperationException("Implementar registrarConsumo");
     }
 
-    public ArrayList<Consumo> getConsumosDoApartamento(int andar, int numero) {
-        if (!aptoValido(andar, numero)) {
-            throw new IllegalArgumentException("Andar ou numero invalido");
-        }
-        throw new UnsupportedOperationException("Implementar getConsumosDoApartamento");
+    public List<Consumo> getConsumosDoApartamento(int id) {
+        List<Consumo> listaConsumos;
+        Estadia estadia = buscarEstadia(id);
+        listaConsumos = estadia.getConsumos();
+
+        return listaConsumos;
     }
 
     public Estadia buscarEstadia(int id){
