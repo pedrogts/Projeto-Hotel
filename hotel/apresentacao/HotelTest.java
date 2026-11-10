@@ -63,6 +63,7 @@ public class HotelTest {
         CadastrarServicoComPrecoNaoPositivoHotel();
         testarRegistrarConsumoHotel();
         testarRegistrarConsumoNaoPositivoHotel();
+        testarFalhaRegistrarConsumoComServicoInexistente();
 
         //Teste de Fatura
          testarCalcularTotalDiariasFatura();
@@ -870,6 +871,19 @@ public class HotelTest {
             passou ++;
         } catch (Exception e) {
             System.out.println("FALHOU: NOME - excecao errada");
+        }
+    }
+
+    static void testarFalhaRegistrarConsumoComServicoInexistente() {
+        total++;
+        Hotel hotel = new Hotel();
+        try {
+            hotel.registrarConsumo(0, 0, 0, 1);
+            System.out.println("FALHOU: testarFalhaRegistrarConsumoComServicoInexistente");
+        } catch (IllegalArgumentException e) {
+            passou++;
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarFalhaRegistrarConsumoComServicoInexistente - exceção errada");
         }
     }
 }
