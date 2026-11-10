@@ -67,6 +67,9 @@ public class HotelTest {
          testarCalcularConsumo();
          testarCalculoTotal();
 
+         //Testes de Servico
+        testarFalhaServicoComNomeNulo();
+
         System.out.println(passou + "/" + total + " testes passaram");
     }
 
@@ -766,5 +769,17 @@ public class HotelTest {
             System.out.println("FALHOU: testarCalculoTotal");
         }
 
+    }
+
+    static void testarFalhaServicoComNomeNulo() {
+        total++;
+        try {
+            new Servico(null, 5.0f);
+            System.out.println("FALHOU: testarFalhaServicoComNomeNulo");
+        } catch (IllegalArgumentException e) {
+            passou++;
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarFalhaServicoComNomeNulo - exceção errada");
+        }
     }
 }
