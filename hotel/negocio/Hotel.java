@@ -96,12 +96,14 @@ public class Hotel {
      * @pre O hotel deve estar inicializado
      * @post Se bem-sucedido, o apartamento tera status OCUPADO e o hospede sera armazenado
      */
-    public boolean realizarCheckin(int andar, int numero, Hospede hospede) {
+    public boolean realizarCheckin(int andar, int numero, Hospede hospede, int dias) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
         Apartamento apto = getApartamento(andar, numero);
         apto.checkin(hospede);
+        Estadia estadia = new Estadia(++idEstadia, apto, hospede, dias);
+        estadias.add(estadia);
         return true;
     }
 

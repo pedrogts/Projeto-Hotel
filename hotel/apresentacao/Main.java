@@ -100,7 +100,8 @@ public class Main {
                             andar = lerAndar();
                             numero = lerNumero();
                             h = lerHospede();
-                            if (hotel.realizarCheckin(andar, numero, h)) {
+                            dias = lerDias();
+                            if (hotel.realizarCheckin(andar, numero, h, dias)) {
                                 System.out.println("Check-in realizado com sucesso.");
                             } else {
                                 System.out.println("Não foi possível realizar check-in.");
