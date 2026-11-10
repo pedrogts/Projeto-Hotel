@@ -248,11 +248,11 @@ public class Hotel {
         return estadia;
     }
 
-    public Fatura emitirFatura(int andar, int numero, int dias) {
-        if (!aptoValido(andar, numero)) {
-            throw new IllegalArgumentException("Andar ou numero invalido");
-        }
-        throw new UnsupportedOperationException("Implementar emitirFatura");
+    public Fatura emitirFatura(int id) {
+        Fatura fatura;
+        Estadia estadia = buscarEstadia(id);
+        fatura = new Fatura(estadia);
+        return fatura;
     }
 
     /**
