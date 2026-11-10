@@ -238,6 +238,11 @@ public class Hotel {
             }
             indice++;
         }
+
+        if(estadia == null){
+            throw new IllegalArgumentException("Estadia inexistente");
+        }
+
         return estadia;
     }
 
