@@ -69,6 +69,7 @@ public class HotelTest {
 
          //Testes de Servico
         testarFalhaServicoComNomeNulo();
+        testarFalhaServicoComNomeVazio();
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
@@ -780,6 +781,18 @@ public class HotelTest {
             passou++;
         } catch (Exception e) {
             System.out.println("FALHOU: testarFalhaServicoComNomeNulo - exceção errada");
+        }
+    }
+
+    static void testarFalhaServicoComNomeVazio() {
+        total++;
+        try {
+            new Servico("   ", 5.0f);
+            System.out.println("FALHOU: testarFalhaServicoComNomeVazio");
+        } catch (IllegalArgumentException e) {
+            passou++;
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarFalhaServicoComNomeVazio - exceção errada");
         }
     }
 }
