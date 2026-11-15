@@ -1,9 +1,10 @@
 package hotel.negocio;
 
 import hotel.modelo.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Hotel {
+public class Hotel implements Serializable{
     public static final int NUM_ANDARES = 20;
     public static final int APTOS_POR_ANDAR = 14;
     public static final int SIMPLES_POR_ANDAR = 8;
@@ -210,7 +211,8 @@ public class Hotel {
     }
 
     public void cadastrarServico(String nome, float preco) {
-        throw new UnsupportedOperationException("Implementar cadastrarServico");
+        Servico novoServico = new Servico(nome, preco);
+        this.servicos.add(novoServico);
     }
 
     public boolean registrarConsumo(int andar, int numero, int indiceServico, int quantidade) {

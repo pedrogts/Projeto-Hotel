@@ -178,12 +178,22 @@ public class Main {
                         new RelatorioSvc(hotel).gerarRankingServicos();
                         break;
                     case 13:
-                        HotelRepo.salvar(hotel);
-                        System.out.println("Dados salvos.");
+                        try {
+                            HotelRepo.salvar(hotel);
+                            System.out.println("Dados do hotel salvos com sucesso em hotel.dat!");
+                        } catch (Exception e) {
+                            System.out.println("Erro ao salvar os dados: " + e.getMessage());
+                        }
+                        
                         break;
                     case 14:
-                        hotel = HotelRepo.carregar();
-                        System.out.println("Dados carregados.");
+                        try {
+                            hotel = HotelRepo.carregar();
+                            System.out.println("Dados do hotel carregados com sucesso!");
+                        } catch (Exception e) {
+                            System.out.println("Erro ao carregar os dados " +e.getMessage());
+                        }
+                        
                         break;
                     case 0:
                         System.out.println("Encerrando.");
