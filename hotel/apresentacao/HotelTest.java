@@ -2,6 +2,7 @@ package hotel.apresentacao;
 
 import hotel.modelo.*;
 import hotel.negocio.Hotel;
+import hotel.repositorio.HotelRepo;
 public class HotelTest {
     private static int passou = 0;
     private static int total = 0;
@@ -55,6 +56,9 @@ public class HotelTest {
 
         //Testes de integração módulo A e B
         testarHotelInicializaComMisturaDeTipos();
+
+        //Testes de Persistência
+        testarSalvarECarregarHotel();
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
@@ -637,6 +641,27 @@ public class HotelTest {
         } else {
             System.out.println("FALHOU: testarHotelInicializaComMisturaDeTipos (simples="
                     + simples + ", premium=" + premium + ")");
+        }
+    }
+
+    static void testarSalvarECarregarHotel(){
+        total++;
+        try {
+            Hotel hotel = new Hotel();
+
+            hotel.cadastrarServico("Massagem", 120.0f);
+            HotelRepo.salvar(hotel);
+
+            Hotel hotelCarregado = HotelRepo.carregar();
+            
+            if(hotelCarregado != null && !hotelCarregado.getServicos().isEmpty() && hotelCarregado.getServicos().get(0).getNome().equals("Massagem")){
+                passou++;
+            }else{
+                System.out.println("FALHOU: testarSalvarECarregarHotel");    
+            }
+
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarSalvarECarregarHotel (" + e.getMessage() + ")");
         }
     }
 }
