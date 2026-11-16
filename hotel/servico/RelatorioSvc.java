@@ -60,6 +60,19 @@ public class RelatorioSvc {
     }
 
     public void gerarResumoFinanceiro() {
-        throw new UnsupportedOperationException("Implementar resumo financeiro");
+        float totalDiarias = 0f;
+        for (Estadia estadia : hotel.getEstadias()) {
+            totalDiarias += estadia.getDias() * estadia.getApto().getPrecoDiaria();
+        }
+
+        float totalConsumos = 0f;
+        for (Consumo c : hotel.getConsumos()) {
+            totalConsumos += c.getTotal();
+        }
+
+        System.out.println("=== RESUMO FINANCEIRO ===");
+        System.out.printf("Total de diarias:  R$ %.2f%n", totalDiarias);
+        System.out.printf("Total de consumos: R$ %.2f%n", totalConsumos);
+        System.out.printf("Faturamento total: R$ %.2f%n", totalDiarias + totalConsumos);
     }
 }
