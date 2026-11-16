@@ -100,6 +100,7 @@ public class HotelTest {
         testarDiasOcupadosComUmaEstadia();
         testarRelatorioOcupacaoNaoLancaExcecao();
         testarRankingOrdenado();
+        testarRankingSemConsumos();
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
@@ -1198,6 +1199,26 @@ public class HotelTest {
         } catch (Exception e) {
             System.setOut(original);
             System.out.println("FALHOU: testarRankingOrdenado (excecao inesperada: " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarRankingSemConsumos() {
+        total++;
+        java.io.PrintStream original = System.out;
+        try {
+            java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+            System.setOut(new java.io.PrintStream(out));
+            new RelatorioSvc(new Hotel()).gerarRankingServicos();
+            System.setOut(original);
+
+            if (out.toString().contains("Nenhum consumo registrado")) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarRankingSemConsumos");
+            }
+        } catch (Exception e) {
+            System.setOut(original);
+            System.out.println("FALHOU: testarRankingSemConsumos (excecao inesperada: " + e.getClass().getSimpleName() + ")");
         }
     }
 }
