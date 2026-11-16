@@ -1,0 +1,54 @@
+package hotel.modelo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Estadia {
+    private int idReserva;
+    private Apartamento apto;
+    private Hospede responsavel;
+    private int dias;
+    private List<Consumo> consumos;
+    
+    public Estadia(int idReserva, Apartamento apto, Hospede responsavel, int dias){
+        this.idReserva = idReserva;
+        this.apto = apto;
+        this.responsavel = responsavel;
+        this.dias = dias;
+        consumos = new ArrayList<>();
+    }
+
+    public int getIdReserva() { return idReserva; }
+    public Apartamento getApto() { return apto; }
+    public Hospede getResponsavel() { return responsavel; }
+
+    public int getDias() { return dias; }
+    public List<Consumo> getConsumos() { return consumos; }
+
+    public void alterarApartamento(Apartamento apto) {
+        if(apto != null){
+            this.apto = apto;
+        } else {
+            throw new IllegalArgumentException("Não é possível fazer alteração sem apartamento");
+        }            
+    }
+
+    public void alterarResponsavel(Hospede responsavel) {
+        if(responsavel != null){
+            this.responsavel = responsavel;
+        } else {
+            throw new IllegalArgumentException("Não é possível fazer alteração sem resposável");
+        }
+                     
+    }
+
+    public void alterarQtdDias(int dias){
+        if(dias > 0){
+            this.dias = dias;
+        } else{
+            throw new IllegalArgumentException("Não é permitido definir uma estadia com menos de 1 dia");
+        }
+        
+    } 
+
+}

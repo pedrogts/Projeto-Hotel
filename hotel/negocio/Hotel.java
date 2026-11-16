@@ -1,9 +1,11 @@
 package hotel.negocio;
 
 import hotel.modelo.*;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Hotel {
+public class Hotel implements Serializable{
     public static final int NUM_ANDARES = 20;
     public static final int APTOS_POR_ANDAR = 14;
     public static final int SIMPLES_POR_ANDAR = 8;
@@ -12,11 +14,14 @@ public class Hotel {
     private Apartamento[][] matriz;
     private ArrayList<Servico> servicos;
     private ArrayList<Consumo> consumos;
+    private ArrayList<Estadia> estadias;
+    private int idEstadia = 0;
 
     public Hotel() {
         this.matriz = new Apartamento[NUM_ANDARES][APTOS_POR_ANDAR];
         this.servicos = new ArrayList<>();
         this.consumos = new ArrayList<>();
+        this.estadias = new ArrayList<>();
         inicializar();
     }
 
@@ -44,6 +49,18 @@ public class Hotel {
         return andar >= 0 && andar < NUM_ANDARES && numero >= 0 && numero < APTOS_POR_ANDAR;
     }
 
+    private boolean precoValido(float preco) {
+        return preco > 0;
+    }
+
+    private boolean quantidadeValida(int quantidade){
+        return quantidade > 0;
+    }
+
+    private boolean servicoValido(int indiceServico) {
+        return indiceServico >= 0 && indiceServico < servicos.size();
+    }
+
     /**
      * Reserva um apartamento, mudando seu status de LIVRE para RESERVADO.
      *
@@ -56,11 +73,13 @@ public class Hotel {
      * @pre O hotel deve estar inicializado
      * @post Se bem-sucedido, o apartamento tera status RESERVADO e o hospede sera armazenado
      */
-    public boolean reservarApartamento(int andar, int numero, Hospede hospede) {
+    public boolean reservarApartamento(int andar, int numero, Hospede hospede, int dias) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
         Apartamento apto = getApartamento(andar,numero);
+        Estadia estadia = new Estadia(++idEstadia, apto, hospede, dias);
+        estadias.add(estadia);
         apto.reservar(hospede);
         return true;
     }
@@ -78,12 +97,14 @@ public class Hotel {
      * @pre O hotel deve estar inicializado
      * @post Se bem-sucedido, o apartamento tera status OCUPADO e o hospede sera armazenado
      */
-    public boolean realizarCheckin(int andar, int numero, Hospede hospede) {
+    public boolean realizarCheckin(int andar, int numero, Hospede hospede, int dias) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
         Apartamento apto = getApartamento(andar, numero);
         apto.checkin(hospede);
+        Estadia estadia = new Estadia(++idEstadia, apto, hospede, dias);
+        estadias.add(estadia);
         return true;
     }
 
@@ -120,12 +141,13 @@ public class Hotel {
      * @pre O hotel deve estar inicializado
      * @post Se bem-sucedido, o apartamento tera status LIVRE e nenhum hospede associado
      */
-    public boolean cancelarReserva(int andar, int numero) {
+    public boolean cancelarReserva(int andar, int numero, int id) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
         Apartamento apto = getApartamento(andar,numero);
         apto.cancelarReserva();
+        estadias.remove(id);
         return true;
     }
 
@@ -210,28 +232,64 @@ public class Hotel {
     }
 
     public void cadastrarServico(String nome, float preco) {
-        throw new UnsupportedOperationException("Implementar cadastrarServico");
+        if(!precoValido(preco)){
+            throw new IllegalArgumentException("Preço de serviõ inválido");
+        }
+
+        Servico servico = new Servico(nome, preco);
+        this.servicos.add(servico);
     }
 
     public boolean registrarConsumo(int andar, int numero, int indiceServico, int quantidade) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
         }
-        throw new UnsupportedOperationException("Implementar registrarConsumo");
+
+        if (!servicoValido(indiceServico)) {
+            throw new IllegalArgumentException("Servico invalido");
+        }
+
+        if(!quantidadeValida(quantidade)){
+            throw new IllegalArgumentException("Quantidade de consumo invalida");
+        }
+
+        Servico servico = servicos.get(indiceServico);
+        Consumo consumo = new Consumo(matriz[andar][numero], servico, quantidade);
+        consumos.add(consumo);
+
+        return true;
     }
 
-    public ArrayList<Consumo> getConsumosDoApartamento(int andar, int numero) {
-        if (!aptoValido(andar, numero)) {
-            throw new IllegalArgumentException("Andar ou numero invalido");
-        }
-        throw new UnsupportedOperationException("Implementar getConsumosDoApartamento");
+    public List<Consumo> getConsumosDoApartamento(int id) {
+        List<Consumo> listaConsumos;
+        Estadia estadia = buscarEstadia(id);
+        listaConsumos = estadia.getConsumos();
+
+        return listaConsumos;
     }
 
-    public Fatura emitirFatura(int andar, int numero, int dias) {
-        if (!aptoValido(andar, numero)) {
-            throw new IllegalArgumentException("Andar ou numero invalido");
+    public Fatura emitirFatura(int id) {
+        Fatura fatura;
+        Estadia estadia = buscarEstadia(id);
+        fatura = new Fatura(estadia);
+        return fatura;
+    }
+
+    public Estadia buscarEstadia(int id){
+        Estadia estadia = null;
+        int indice = 0;
+        while(estadia == null && indice < this.estadias.size()){
+            if(id == estadias.get(indice).getIdReserva()){
+                estadia = estadias.get(indice);
+            }
+            indice++;
         }
-        throw new UnsupportedOperationException("Implementar emitirFatura");
+
+        if(estadia == null){
+            throw new IllegalArgumentException("Estadia inexistente");
+        }
+
+        return estadia;
     }
 
     /**
@@ -251,4 +309,5 @@ public class Hotel {
 
     public ArrayList<Servico> getServicos() { return servicos; }
     public ArrayList<Consumo> getConsumos() { return consumos; }
+    public ArrayList<Estadia> getEstadias() { return estadias; }
 }

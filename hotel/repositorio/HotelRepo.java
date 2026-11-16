@@ -7,10 +7,12 @@ public class HotelRepo {
     private static final String ARQUIVO = "hotel.dat";
 
     public static void salvar(Hotel hotel) throws IOException {
-        throw new UnsupportedOperationException("Implementar salvar");
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ARQUIVO))) {
+            oos.writeObject(hotel);}
     }
 
     public static Hotel carregar() throws IOException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Implementar carregar");
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ARQUIVO))) {
+            return (Hotel) ois.readObject();}   
     }
 }

@@ -1,10 +1,14 @@
 package hotel.modelo;
+import java.io.Serializable;
 
-public class Servico {
+public class Servico implements Serializable{
     private String nome;
     private float preco;
 
     public Servico(String nome, float preco) {
+        if (nome == null || nome.isBlank() ){
+            throw new IllegalArgumentException("Campo obrigatório: nome");
+        }
         this.nome = nome;
         this.preco = preco;
     }
