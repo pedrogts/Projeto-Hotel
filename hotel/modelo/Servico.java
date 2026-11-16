@@ -1,6 +1,7 @@
 package hotel.modelo;
+import java.io.Serializable;
 
-public class Servico {
+public class Servico implements Serializable{
     private String nome;
     private float preco;
 

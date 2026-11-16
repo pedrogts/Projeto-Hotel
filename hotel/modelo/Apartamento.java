@@ -1,10 +1,11 @@
 package hotel.modelo;
+import java.io.Serializable;
 
-public class Apartamento {
+public class Apartamento implements Serializable{
     private Status status;
     private Hospede hospede;
 
-    public Apartamento() {
+    public Apartamento () {
         this.status = Status.LIVRE;
         this.hospede = null;
     }

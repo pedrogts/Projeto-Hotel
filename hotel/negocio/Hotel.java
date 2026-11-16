@@ -1,10 +1,11 @@
 package hotel.negocio;
 
 import hotel.modelo.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hotel {
+public class Hotel implements Serializable{
     public static final int NUM_ANDARES = 20;
     public static final int APTOS_POR_ANDAR = 14;
     public static final int SIMPLES_POR_ANDAR = 8;
@@ -251,11 +252,11 @@ public class Hotel {
         if(!quantidadeValida(quantidade)){
             throw new IllegalArgumentException("Quantidade de consumo invalida");
         }
-        
+
         Servico servico = servicos.get(indiceServico);
         Consumo consumo = new Consumo(matriz[andar][numero], servico, quantidade);
         consumos.add(consumo);
-        
+
         return true;
     }
 
