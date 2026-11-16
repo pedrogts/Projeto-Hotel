@@ -3,12 +3,10 @@ package hotel.apresentacao;
 import hotel.modelo.*;
 import hotel.negocio.*;
 import hotel.servico.*;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import hotel.repositorio.*;
 
-import hotel.repositorio.HotelRepo;
 public class HotelTest {
     private static int passou = 0;
     private static int total = 0;
@@ -101,6 +99,7 @@ public class HotelTest {
         //Testes de Relatório
         testarDiasOcupadosComUmaEstadia();
         testarRelatorioOcupacaoNaoLancaExcecao();
+        testarRankingOrdenado();
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
@@ -1171,6 +1170,34 @@ public class HotelTest {
             passou++;
         } catch (Exception e) {
             System.out.println("FALHOU: testarRelatorioOcupacaoNaoLancaExcecao (" + e + ")");
+        }
+    }
+
+    static void testarRankingOrdenado() {
+        total++;
+        java.io.PrintStream original = System.out;
+        try {
+            Hotel hotel = new Hotel();
+            hotel.cadastrarServico("Agua", 5f);
+            hotel.cadastrarServico("Jantar", 80f);
+            hotel.realizarCheckin(0, 0, new Hospede("1", "Ana", "Rua", "99", "a@x"), 1);
+            hotel.registrarConsumo(0, 0, 0, 1);
+            hotel.registrarConsumo(0, 0, 1, 3);
+
+            java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+            System.setOut(new java.io.PrintStream(out));
+            new RelatorioSvc(hotel).gerarRankingServicos();
+            System.setOut(original);
+
+            String s = out.toString();
+            if (s.contains("1. Jantar") && s.contains("2. Agua")) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarRankingOrdenado");
+            }
+        } catch (Exception e) {
+            System.setOut(original);
+            System.out.println("FALHOU: testarRankingOrdenado (excecao inesperada: " + e.getClass().getSimpleName() + ")");
         }
     }
 }
