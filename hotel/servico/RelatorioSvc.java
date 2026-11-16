@@ -26,7 +26,15 @@ public class RelatorioSvc {
     }
 
     public void gerarRelatorioOcupacao() {
-        throw new UnsupportedOperationException("Implementar relatorio de ocupacao");
+        int[][] dias = calcularDiasOcupados();
+        System.out.println("=== RELATORIO DE OCUPACAO ===");
+        for (int a = 0; a < Hotel.NUM_ANDARES; a++) {
+            for (int n = 0; n < Hotel.APTOS_POR_ANDAR; n++) {
+                if (dias[a][n] > 0) {
+                    System.out.println("Andar " + a + ", Apto " + n + ": " + dias[a][n] + " dia(s)");
+                }
+            }
+        }
     }
 
     public void gerarRankingServicos() {
