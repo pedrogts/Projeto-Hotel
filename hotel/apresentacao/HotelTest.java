@@ -1,7 +1,8 @@
 package hotel.apresentacao;
 
 import hotel.modelo.*;
-import hotel.negocio.Hotel;
+import hotel.negocio.*;
+import hotel.servico.*;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -96,6 +97,9 @@ public class HotelTest {
 
         //Testes de Persistência
         testarSalvarECarregarHotel();
+
+        //Testes de Relatório
+        testarDiasOcupadosComUmaEstadia();
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
@@ -1135,6 +1139,25 @@ public class HotelTest {
 
         } catch (Exception e) {
             System.out.println("FALHOU: testarSalvarECarregarHotel (" + e.getMessage() + ")");
+        }
+    }
+
+    static void testarDiasOcupadosComUmaEstadia() {
+        total++;
+        try {
+            Hotel hotel = new Hotel();
+            hotel.realizarCheckin(0, 0, new Hospede("123", "Joao", "Rua X", "9999", "joao@x"), 3);
+            RelatorioSvc svc = new RelatorioSvc(hotel);
+
+            int[][] dias = svc.calcularDiasOcupados();
+
+            if (dias[0][0] == 3 && dias[0][1] == 0) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarDiasOcupadosComUmaEstadia");
+            }
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarDiasOcupadosComUmaEstadia (" + e + ")");
         }
     }
 }

@@ -11,6 +11,10 @@ public class RelatorioSvc {
         this.hotel = hotel;
     }
 
+    public int[][] calcularDiasOcupados() {
+        throw new UnsupportedOperationException("Implementar calcularDiasOcupados");
+    }
+
     public void gerarRelatorioOcupacao() {
         throw new UnsupportedOperationException("Implementar relatorio de ocupacao");
     }
