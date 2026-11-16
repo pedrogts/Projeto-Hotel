@@ -100,6 +100,7 @@ public class HotelTest {
 
         //Testes de Relatório
         testarDiasOcupadosComUmaEstadia();
+        testarRelatorioOcupacaoNaoLancaExcecao();
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
@@ -1158,6 +1159,18 @@ public class HotelTest {
             }
         } catch (Exception e) {
             System.out.println("FALHOU: testarDiasOcupadosComUmaEstadia (" + e + ")");
+        }
+    }
+
+    static void testarRelatorioOcupacaoNaoLancaExcecao() {
+        total++;
+        try {
+            Hotel hotel = new Hotel();
+            hotel.realizarCheckin(0, 0, new Hospede("123", "Joao", "Rua X", "9999", "joao@x"), 3);
+            new RelatorioSvc(hotel).gerarRelatorioOcupacao();
+            passou++;
+        } catch (Exception e) {
+            System.out.println("FALHOU: testarRelatorioOcupacaoNaoLancaExcecao (" + e + ")");
         }
     }
 }
