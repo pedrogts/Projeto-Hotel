@@ -45,6 +45,11 @@ public class RelatorioSvc {
             quantidades.merge(c.getServico().getNome(), c.getQuantidade(), Integer::sum);
         }
 
+        if (quantidades.isEmpty()) {
+            System.out.println("Nenhum consumo registrado.");
+            return;
+        }
+
         List<Map.Entry<String, Integer>> ranking = new ArrayList<>(quantidades.entrySet());
         ranking.sort((x, y) -> y.getValue().compareTo(x.getValue()));
 
