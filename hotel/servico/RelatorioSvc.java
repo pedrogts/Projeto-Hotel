@@ -12,7 +12,17 @@ public class RelatorioSvc {
     }
 
     public int[][] calcularDiasOcupados() {
-        throw new UnsupportedOperationException("Implementar calcularDiasOcupados");
+        int[][] dias = new int[Hotel.NUM_ANDARES][Hotel.APTOS_POR_ANDAR];
+        for (Estadia estadia : hotel.getEstadias()) {
+            for (int a = 0; a < Hotel.NUM_ANDARES; a++) {
+                for (int n = 0; n < Hotel.APTOS_POR_ANDAR; n++) {
+                    if (hotel.getApartamento(a, n) == estadia.getApto()) {
+                        dias[a][n] += estadia.getDias();
+                    }
+                }
+            }
+        }
+        return dias;
     }
 
     public void gerarRelatorioOcupacao() {
