@@ -38,7 +38,20 @@ public class RelatorioSvc {
     }
 
     public void gerarRankingServicos() {
-        throw new UnsupportedOperationException("Implementar ranking de servicos");
+        System.out.println("=== RANKING DE SERVICOS ===");
+
+        Map<String, Integer> quantidades = new HashMap<>();
+        for (Consumo c : hotel.getConsumos()) {
+            quantidades.merge(c.getServico().getNome(), c.getQuantidade(), Integer::sum);
+        }
+
+        List<Map.Entry<String, Integer>> ranking = new ArrayList<>(quantidades.entrySet());
+        ranking.sort((x, y) -> y.getValue().compareTo(x.getValue()));
+
+        int posicao = 1;
+        for (Map.Entry<String, Integer> e : ranking) {
+            System.out.println(posicao++ + ". " + e.getKey() + " - " + e.getValue() + " unidade(s)");
+        }
     }
 
     public void gerarResumoFinanceiro() {
