@@ -101,6 +101,7 @@ public class HotelTest {
         testarRelatorioOcupacaoNaoLancaExcecao();
         testarRankingOrdenado();
         testarRankingSemConsumos();
+        testarResumoFinanceiroComConsumo();
 
         System.out.println(passou + "/" + total + " testes passaram");
     }
@@ -1219,6 +1220,31 @@ public class HotelTest {
         } catch (Exception e) {
             System.setOut(original);
             System.out.println("FALHOU: testarRankingSemConsumos (excecao inesperada: " + e.getClass().getSimpleName() + ")");
+        }
+    }
+
+    static void testarResumoFinanceiroComConsumo() {
+        total++;
+        java.io.PrintStream original = System.out;
+        try {
+            Hotel hotel = new Hotel();
+            hotel.cadastrarServico("Jantar", 80f);
+            hotel.realizarCheckin(0, 0, new Hospede("1", "Ana", "Rua", "99", "a@x"), 1);
+            hotel.registrarConsumo(0, 0, 0, 2); // 2 x 80 = 160
+
+            java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+            System.setOut(new java.io.PrintStream(out));
+            new RelatorioSvc(hotel).gerarResumoFinanceiro();
+            System.setOut(original);
+
+            if (out.toString().contains(String.format("%.2f", 160f))) {
+                passou++;
+            } else {
+                System.out.println("FALHOU: testarResumoFinanceiroComConsumo");
+            }
+        } catch (Exception e) {
+            System.setOut(original);
+            System.out.println("FALHOU: testarResumoFinanceiroComConsumo (excecao inesperada: " + e.getClass().getSimpleName() + ")");
         }
     }
 }
