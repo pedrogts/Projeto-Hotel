@@ -5,6 +5,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fachada do sistema: gerencia os 280 apartamentos (20 andares com 14
+ * apartamentos), o cardápio de serviços, os consumos e as estadias, e expõe
+ * os casos de uso chamados pela camada de apresentação.
+ */
 public class Hotel implements Serializable{
     public static final int NUM_ANDARES = 20;
     public static final int APTOS_POR_ANDAR = 14;
@@ -17,6 +22,14 @@ public class Hotel implements Serializable{
     private ArrayList<Estadia> estadias;
     private int idEstadia = 0;
 
+    /**
+     * Cria o hotel com todos os apartamentos livres, já diferenciados entre
+     * Simples e Premium, e com as listas de serviços, consumos e estadias vazias.
+     *
+     * @pre Nenhuma
+     * @post O hotel fica inicializado com {@value #NUM_ANDARES} andares de
+     *       {@value #APTOS_POR_ANDAR} apartamentos, todos LIVRES
+     */
     public Hotel() {
         this.matriz = new Apartamento[NUM_ANDARES][APTOS_POR_ANDAR];
         this.servicos = new ArrayList<>();
@@ -67,6 +80,7 @@ public class Hotel implements Serializable{
      * @param andar Numero do andar (0 a 19)
      * @param numero Numero do apartamento no andar (0 a 13)
      * @param hospede Dados do hospede que fará a reserva
+     * @param dias quantidade de diárias previstas para a estadia
      * @return true se a reserva foi bem-sucedida
      * @throws IllegalArgumentException se andar ou numero forem invalidos
      *
@@ -91,6 +105,7 @@ public class Hotel implements Serializable{
      * @param andar Numero do andar (0 a 19)
      * @param numero Numero do apartamento no andar (0 a 13)
      * @param hospede Dados do hospede que fara o check-in
+     * @param dias quantidade de diárias da estadia
      * @return true se o check-in foi bem-sucedido
      * @throws IllegalArgumentException se andar ou numero forem invalidos
      *
@@ -135,6 +150,7 @@ public class Hotel implements Serializable{
      *
      * @param andar Numero do andar (0 a 19)
      * @param numero Numero do apartamento no andar (0 a 13)
+     * @param id número da estadia (reserva) a ser cancelada
      * @return true se o cancelamento foi bem-sucedido
      * @throws IllegalArgumentException se andar ou numero forem invalidos
      *
@@ -231,6 +247,17 @@ public class Hotel implements Serializable{
         return reservados / TOTAL_APARTAMENTOS;
     }
 
+    /**
+     * Cadastra um novo serviço no cardápio do hotel (REQ10).
+     *
+     * @param nome nome do serviço
+     * @param preco preço unitário do serviço
+     * @throws IllegalArgumentException se o preço não for maior que zero ou se o
+     *         nome for nulo ou vazio
+     *
+     * @pre O hotel deve estar inicializado
+     * @post Se bem-sucedido, o serviço é adicionado ao final do cardápio
+     */
     public void cadastrarServico(String nome, float preco) {
         if(!precoValido(preco)){
             throw new IllegalArgumentException("Preço de serviõ inválido");
@@ -240,6 +267,22 @@ public class Hotel implements Serializable{
         this.servicos.add(servico);
     }
 
+    /**
+     * Registra o consumo de um serviço do cardápio por um apartamento (REQ10).
+     *
+     * @param andar Numero do andar (0 a 19)
+     * @param numero Numero do apartamento no andar (0 a 13)
+     * @param indiceServico posição do serviço no cardápio, a partir de 0
+     * @param quantidade quantidade de unidades consumidas
+     * @return true se o consumo foi registrado
+     * @throws IllegalArgumentException se andar ou numero forem invalidos, se o
+     *         serviço não existir no cardápio, se a quantidade não for positiva ou
+     *         se o apartamento não estiver OCUPADO
+     *
+     * @pre O hotel deve estar inicializado, o serviço deve estar cadastrado e o
+     *      apartamento deve estar OCUPADO
+     * @post Se bem-sucedido, o consumo é adicionado à lista de consumos do hotel
+     */
     public boolean registrarConsumo(int andar, int numero, int indiceServico, int quantidade) {
         if (!aptoValido(andar, numero)) {
             throw new IllegalArgumentException("Andar ou numero invalido");
@@ -264,6 +307,16 @@ public class Hotel implements Serializable{
         return true;
     }
 
+    /**
+     * Devolve os consumos de uma estadia.
+     *
+     * @param id número da estadia
+     * @return a lista de consumos da estadia
+     * @throws IllegalArgumentException se não existir estadia com o número informado
+     *
+     * @pre A estadia deve existir no hotel
+     * @post Nenhum objeto é alterado
+     */
     public List<Consumo> getConsumosDoApartamento(int id) {
         List<Consumo> listaConsumos;
         Estadia estadia = buscarEstadia(id);
@@ -272,6 +325,16 @@ public class Hotel implements Serializable{
         return listaConsumos;
     }
 
+    /**
+     * Emite a fatura de uma estadia, com o total das diárias e dos consumos (REQ11).
+     *
+     * @param id número da estadia
+     * @return a fatura da estadia
+     * @throws IllegalArgumentException se não existir estadia com o número informado
+     *
+     * @pre A estadia deve existir no hotel
+     * @post Nenhum objeto é alterado; a fatura é calculada a partir da estadia
+     */
     public Fatura emitirFatura(int id) {
         Fatura fatura;
         Estadia estadia = buscarEstadia(id);
@@ -279,6 +342,16 @@ public class Hotel implements Serializable{
         return fatura;
     }
 
+    /**
+     * Localiza uma estadia pelo seu número.
+     *
+     * @param id número da estadia
+     * @return a estadia com o número informado
+     * @throws IllegalArgumentException se não existir estadia com o número informado
+     *
+     * @pre O hotel deve estar inicializado
+     * @post Nenhum objeto é alterado
+     */
     public Estadia buscarEstadia(int id){
         Estadia estadia = null;
         int indice = 0;
@@ -311,7 +384,25 @@ public class Hotel implements Serializable{
         return matriz[andar][numero];
     }
 
+    /**
+     * Devolve o cardápio de serviços do hotel.
+     * @return a lista de serviços cadastrados, na ordem de cadastro
+     * @pre O hotel deve estar inicializado
+     * @post Nenhum objeto é alterado
+     */
     public ArrayList<Servico> getServicos() { return servicos; }
+    /**
+     * Devolve todos os consumos registrados no hotel.
+     * @return a lista de consumos, na ordem de registro
+     * @pre O hotel deve estar inicializado
+     * @post Nenhum objeto é alterado
+     */
     public ArrayList<Consumo> getConsumos() { return consumos; }
+    /**
+     * Devolve todas as estadias registradas no hotel.
+     * @return a lista de estadias, na ordem de criação
+     * @pre O hotel deve estar inicializado
+     * @post Nenhum objeto é alterado
+     */
     public ArrayList<Estadia> getEstadias() { return estadias; }
 }
