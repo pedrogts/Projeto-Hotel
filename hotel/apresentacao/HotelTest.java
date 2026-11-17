@@ -76,6 +76,7 @@ public class HotelTest {
         testarRegistrarConsumoHotel();
         testarRegistrarConsumoNaoPositivoHotel();
         testarFalhaRegistrarConsumoComServicoInexistente();
+        testarConsumoEmAptoLivreOuReservado();
 
         //Teste de Estadia
         testarAlterarAptoEstadia();
