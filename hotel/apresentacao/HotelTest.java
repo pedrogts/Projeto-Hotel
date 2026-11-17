@@ -67,7 +67,7 @@ public class HotelTest {
          testarCalcularConsumo();
          testarCalculoTotal();
 
-         //Testes de Servico e Consumo
+        //Testes de Servico e Consumo
         testarFalhaServicoComNomeNulo();
         testarFalhaServicoComNomeVazio();
         testarFalhaConsumoComServicoNulo();
@@ -77,6 +77,7 @@ public class HotelTest {
         testarRegistrarConsumoHotel();
         testarRegistrarConsumoNaoPositivoHotel();
         testarFalhaRegistrarConsumoComServicoInexistente();
+        testarConsumoEmAptoLivreOuReservado();
 
         //Teste de Estadia
         testarAlterarAptoEstadia();
@@ -724,6 +725,9 @@ public class HotelTest {
         float preco_servico = 10;
         int quantidade = 1;
         hotel.cadastrarServico(nome_servico, preco_servico);
+        Hospede h = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Apartamento apto = hotel.getApartamento(0,0);
+        apto.checkin(h);
         int numero = 0;
         int andar = 0;
         List<Consumo> consumos;
@@ -1113,6 +1117,27 @@ public class HotelTest {
             passou++;
         } catch (Exception e) {
             System.out.println("FALHOU: testarFalhaRegistrarConsumoComServicoInexistente - exceção errada");
+        }
+    }
+
+    static void testarConsumoEmAptoLivreOuReservado() {
+        total++;
+        Hotel hotel = new Hotel();
+        Hospede hosp = new Hospede("123", "Joao", "Rua X", "9999", "joao@x");
+        Apartamento aptoReservado = hotel.getApartamento(0, 0);
+        aptoReservado.reservar(hosp);
+        hotel.cadastrarServico("s1", 1);
+
+        try {
+            hotel.registrarConsumo(1, 1, 0, 1);
+            System.out.println("FALHOU: testarConsumoEmAptoLivreOuReservado");
+        } catch (IllegalArgumentException e) {
+            try {
+                hotel.registrarConsumo(0, 0, 0, 1);
+                System.out.println("FALHOU: testarConsumoEmAptoLivreOuReservado");
+            } catch (IllegalArgumentException ex) {
+                passou++;
+            }
         }
     }
 
