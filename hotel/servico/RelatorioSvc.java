@@ -4,13 +4,35 @@ import hotel.modelo.*;
 import hotel.negocio.Hotel;
 import java.util.*;
 
+/**
+ * Gera os relatórios gerenciais do hotel (REQ14): histórico de ocupação,
+ * ranking de serviços mais consumidos e resumo financeiro. Apenas lê os dados
+ * do hotel, sem alterá-los.
+ */
 public class RelatorioSvc {
     private Hotel hotel;
 
+    /**
+     * Cria o serviço de relatórios para um hotel.
+     *
+     * @param hotel hotel cujos dados serão usados nos relatórios
+     *
+     * @pre O hotel deve estar inicializado
+     * @post O serviço fica associado ao hotel informado
+     */
     public RelatorioSvc(Hotel hotel) {
         this.hotel = hotel;
     }
 
+    /**
+     * Calcula quantos dias cada apartamento ficou ocupado, somando os dias de
+     * todas as estadias registradas no hotel.
+     *
+     * @return matriz [andar][número] com o total de dias de cada apartamento
+     *
+     * @pre O hotel deve estar inicializado
+     * @post Nenhum objeto é alterado
+     */
     public int[][] calcularDiasOcupados() {
         int[][] dias = new int[Hotel.NUM_ANDARES][Hotel.APTOS_POR_ANDAR];
         for (Estadia estadia : hotel.getEstadias()) {
@@ -25,6 +47,13 @@ public class RelatorioSvc {
         return dias;
     }
 
+    /**
+     * Exibe o histórico de ocupação (REQ14): total de dias de cada apartamento,
+     * listando apenas os apartamentos que tiveram estadias.
+     *
+     * @pre O hotel deve estar inicializado
+     * @post O relatório é exibido no terminal; nenhum objeto é alterado
+     */
     public void gerarRelatorioOcupacao() {
         int[][] dias = calcularDiasOcupados();
         System.out.println("=== RELATORIO DE OCUPACAO ===");
@@ -37,6 +66,13 @@ public class RelatorioSvc {
         }
     }
 
+    /**
+     * Exibe o ranking de serviços mais consumidos (REQ14), em ordem decrescente de
+     * unidades consumidas. Se não houver consumos, informa que nenhum foi registrado.
+     *
+     * @pre O hotel deve estar inicializado
+     * @post O ranking é exibido no terminal; nenhum objeto é alterado
+     */
     public void gerarRankingServicos() {
         System.out.println("=== RANKING DE SERVICOS ===");
 
@@ -59,6 +95,13 @@ public class RelatorioSvc {
         }
     }
 
+    /**
+     * Exibe o resumo financeiro do hotel: total das diárias das estadias, total
+     * dos consumos e faturamento total estimado.
+     *
+     * @pre O hotel deve estar inicializado
+     * @post O resumo é exibido no terminal; nenhum objeto é alterado
+     */
     public void gerarResumoFinanceiro() {
         float totalDiarias = 0f;
         for (Estadia estadia : hotel.getEstadias()) {

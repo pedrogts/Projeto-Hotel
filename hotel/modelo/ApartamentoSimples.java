@@ -1,5 +1,9 @@
 package hotel.modelo;
 
+/**
+ * Apartamento do tipo Simples, com diária padrão (REQ12). Herda de Apartamento
+ * todas as transições de estado e define apenas o preço da diária.
+ */
 public class ApartamentoSimples extends Apartamento {
     private static final float PRECO_DIARIA = 150.0f;
 

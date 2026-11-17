@@ -1,5 +1,9 @@
 package hotel.modelo;
 
+/**
+ * Apartamento do tipo Premium, com diária superior à do Simples (REQ12). Herda
+ * de Apartamento todas as transições de estado e define apenas o preço da diária.
+ */
 public class ApartamentoPremium extends Apartamento {
     private static final float PRECO_DIARIA = 350.0f;
 

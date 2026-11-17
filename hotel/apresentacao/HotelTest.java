@@ -7,10 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 import hotel.repositorio.*;
 
+/**
+ * Suíte de testes unitários e de integração da equipe (TDD), com asserções
+ * simples: cada teste incrementa o total e, se passar, o contador de aprovados.
+ */
 public class HotelTest {
     private static int passou = 0;
     private static int total = 0;
 
+    /**
+     * Executa todos os testes e exibe quantos passaram do total.
+     *
+     * @param args argumentos de linha de comando (não utilizados)
+     *
+     * @pre Nenhuma
+     * @post Exibe "aprovados/total testes passaram" e o nome de cada teste que falhou
+     */
     public static void main(String[] args) {
         testarCheckinEmAptoLivre();
         testarCheckinArmazenaHospede();
