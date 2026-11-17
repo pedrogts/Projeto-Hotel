@@ -74,8 +74,9 @@ public class Main {
             System.out.println("10 - Emitir fatura de apartamento");
             System.out.println("11 - Relatório de ocupação");
             System.out.println("12 - Ranking de serviços");
-            System.out.println("13 - Salvar dados em arquivo");
-            System.out.println("14 - Carregar dados de arquivo");
+            System.out.println("13 - Resumo financeiro");
+            System.out.println("14 - Salvar dados em arquivo");
+            System.out.println("15 - Carregar dados de arquivo");
             System.out.println("0  - Sair");
             System.out.print("Opção: ");
 
@@ -191,7 +192,7 @@ public class Main {
                         System.out.print("Número da estadia: ");
                         idEstadia = Integer.parseInt(scanner.nextLine());
                         Fatura fatura = hotel.emitirFatura(idEstadia);
-                       // System.out.println(fatura);
+                        System.out.println(fatura);
                         break;
                     case 11:
                         new RelatorioSvc(hotel).gerarRelatorioOcupacao();
@@ -200,13 +201,7 @@ public class Main {
                         new RelatorioSvc(hotel).gerarRankingServicos();
                         break;
                     case 13:
-                        try {
-                            HotelRepo.salvar(hotel);
-                            System.out.println("Dados do hotel salvos com sucesso em hotel.dat!");
-                        } catch (Exception e) {
-                            System.out.println("Erro ao salvar os dados: " + e.getMessage());
-                        }
-                        
+                        new RelatorioSvc(hotel).gerarResumoFinanceiro();;
                         break;
                     case 14:
                         try {
