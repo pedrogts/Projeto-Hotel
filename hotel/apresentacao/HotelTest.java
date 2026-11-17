@@ -62,22 +62,21 @@ public class HotelTest {
         //Testes de integração módulo A e B
         testarHotelInicializaComMisturaDeTipos();
 
-        CadastrarServicoHotel();
-        CadastrarServicoComPrecoNaoPositivoHotel();
-        testarRegistrarConsumoHotel();
-        testarRegistrarConsumoNaoPositivoHotel();
-        testarFalhaRegistrarConsumoComServicoInexistente();
-
         //Teste de Fatura
          testarCalcularTotalDiariasFatura();
          testarCalcularConsumo();
          testarCalculoTotal();
 
-         //Testes de Servico
+         //Testes de Servico e Consumo
         testarFalhaServicoComNomeNulo();
         testarFalhaServicoComNomeVazio();
         testarFalhaConsumoComServicoNulo();
         testarFalhaConsumoComApartamentoNulo();
+        testarCadastrarServicoHotel();
+        testarCadastrarServicoComPrecoNaoPositivoHotel();
+        testarRegistrarConsumoHotel();
+        testarRegistrarConsumoNaoPositivoHotel();
+        testarFalhaRegistrarConsumoComServicoInexistente();
 
         //Teste de Estadia
         testarAlterarAptoEstadia();
@@ -684,7 +683,7 @@ public class HotelTest {
         }
     }
 
-    static void CadastrarServicoHotel(){
+    static void testarCadastrarServicoHotel(){
         total++;
         Hotel hotel = new Hotel();
         List<Servico> servicos;
@@ -703,7 +702,7 @@ public class HotelTest {
         }
     }
 
-    static void CadastrarServicoComPrecoNaoPositivoHotel(){
+    static void testarCadastrarServicoComPrecoNaoPositivoHotel(){
         total++;
         Hotel hotel = new Hotel();
         String nome = "s1";
