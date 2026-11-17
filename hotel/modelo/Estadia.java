@@ -1,5 +1,6 @@
 package hotel.modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,8 @@ import java.util.List;
  * apartamento, com número próprio, quantidade de dias e os consumos daquela
  * hospedagem. É a partir dela que a fatura é calculada.
  */
-public class Estadia {
+
+public class Estadia implements Serializable {
     private int idReserva;
     private Apartamento apto;
     private Hospede responsavel;

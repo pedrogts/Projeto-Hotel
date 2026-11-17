@@ -1,10 +1,12 @@
 package hotel.modelo;
+import java.io.Serializable;
 
 /**
  * Registro do consumo de um serviço do cardápio por um apartamento (REQ10).
  * Associa um Servico a um Apartamento, com a quantidade consumida (composição).
  */
-public class Consumo {
+
+public class Consumo implements Serializable {
     private Apartamento apartamento;
     private Servico servico;
     private int quantidade;
