@@ -253,6 +253,10 @@ public class Hotel implements Serializable{
             throw new IllegalArgumentException("Quantidade de consumo invalida");
         }
 
+        if(!matriz[andar][numero].estaOcupado()){
+            throw new IllegalArgumentException("Apartamento sem ocupação");
+        }
+
         Servico servico = servicos.get(indiceServico);
         Consumo consumo = new Consumo(matriz[andar][numero], servico, quantidade);
         consumos.add(consumo);
