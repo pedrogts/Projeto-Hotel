@@ -83,7 +83,7 @@ public class Main {
             try {
                 opcao = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                        System.out.println("Opção inválida.");
+                System.out.println("Opção inválida.");
                 opcao = -1;
                 continue;
             }
@@ -201,22 +201,29 @@ public class Main {
                         new RelatorioSvc(hotel).gerarRankingServicos();
                         break;
                     case 13:
-                        new RelatorioSvc(hotel).gerarResumoFinanceiro();;
+                        new RelatorioSvc(hotel).gerarResumoFinanceiro();
                         break;
                     case 14:
+                        try {
+                            HotelRepo.salvar(hotel);
+                            System.out.println("Dados do hotel salvos com sucesso em hotel.dat!");
+                        } catch (Exception e) {
+                            System.out.println("Erro ao salvar os dados: " + e.getMessage());
+                        }
+                        break;
+                    case 15:
                         try {
                             hotel = HotelRepo.carregar();
                             System.out.println("Dados do hotel carregados com sucesso!");
                         } catch (Exception e) {
-                            System.out.println("Erro ao carregar os dados " +e.getMessage());
+                            System.out.println("Erro ao carregar os dados: " + e.getMessage());
                         }
-                        
                         break;
                     case 0:
                         System.out.println("Encerrando.");
                         break;
                     default:
-                System.out.println("Opção inválida.");
+                        System.out.println("Opção inválida.");
                 }
             } catch (UnsupportedOperationException e) {
                 System.out.println("Funcionalidade não implementada: " + e.getMessage());
